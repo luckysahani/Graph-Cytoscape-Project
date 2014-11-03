@@ -5,8 +5,7 @@
 		<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 		<meta content="utf-8" http-equiv="encoding">
 		<script type="text/javascript" src="parse.js"></script>
-		<script type="text/javascript" src="check.js"></script>
-		<title>CS252 Assignment</title>
+		<title>CS252 teri maa ko</title>
 		<style type="text/css">
 			#center{
 				text-align: center;
@@ -20,42 +19,12 @@
 		<script>
 			function loadXMLDoc()
 			{
-				var xmlhttp;
-				var param = document.getElementById('graph_input').value;
-				if (window.XMLHttpRequest)
-				  {// code for IE7+, Firefox, Chrome, Opera, Safari
-				  xmlhttp=new XMLHttpRequest();
-				  }
-				else
-				  {// code for IE6, IE5
-				  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-				  }
-				xmlhttp.open("GET","http://172.20.185.111:8080/getAllBMarks?param=" + param,true);
-				xmlhttp.send();
+				$.get( '/getAllBMarks?param=' + document.getElementById("graph_input").value , function(data) {
+					console.log(data);
+					document.getElementById("graph_input").value=data.data+' and hardik are magoda';
 
-				xmlhttp.onreadystatechange=function(){
-				 if(xmlhttp.readyState === 4){
-				  if ( xmlhttp.status===200)
-				    {
-						
-				    	document.getElementById("graph_input").value='sdads';
-				    }
+			      });
 				}
-				  }
-				}
-
-			// $(function(){
-			//  $('#sendData').on('click', function(e){
-			//    // if(e.keyCode === 13) {
-			//      var parameters = { search: 'romit' };
-			//        $.get( 'http://172.20.185.111:8080/getAllBMarks',parameters, function(data) {
-			//        alert("Your book is overdue.");
-			//        console.log('asdas');
-			//      });
-			//     // };
-			//  });
-			// });
-
 			</script>
 
 
@@ -68,12 +37,10 @@
 			<a  href="1.html">Have a look</a>
 			<!-- <a onclick="check()">Check.js</a> -->
 		</h2>
-		<form  method="post">
 			<p align="center">
 				<textarea id="graph_input" name="Text1" cols="40" rows="5"></textarea><br>
-				<INPUT type="submit" onclick="loadXMLDoc()" value="Send" id='sendData'> 
+				<button onclick="loadXMLDoc()" value="Send" id='sendData'> Submit </button>
 			</p>
-		</form>
 		<div id="center">
 			<input onclick="alert2()" type="submit" id="center" style="" >
 				Trying cytoscape
