@@ -16,9 +16,17 @@ function check()
         throw err;
 
     else
+    {	
+  		//graph.createNodeIndex ( [Batch,] String name, Function callback )
+		// graph.createNodeIndex ( [Batch,] String name, Object config, Function callback )
+		// graph.createNodeIndex ( [Batch,] Function callback )
+		// graph.createNodeIndex ( [Batch,] Object config, Function callback )
+    	graph.createNode({ prop1: 'node property', boolProperty: false }, function (err, node) {
+		    console.log(err ? err : node);
+		});
     	graph.createNode({ prop1: 'friends', prop2: 'maggu', boolProperty: false }, function (err, node) {
 		    console.log(err ? err : node);
 		});
-	});
-	console.log("check clicked");
+		console.log("check clicked");
+	}
 }
