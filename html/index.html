@@ -1,40 +1,77 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<!-- <title></title> -->
-	<script type="text/javascript" src="parse.js"></script>
-	<title>CS252 Assignment</title>
-	<style type="text/css">
-	#center{
-		text-align: center;
-	}
-	.center{
-		text-align: center;
-		position: center;
-	}
-	</style>
+	<head>
+		<!-- <title></title> -->
+		<script type="text/javascript" src="parse.js"></script>
+		<title>CS252 Assignment</title>
+		<style type="text/css">
+			#center{
+				text-align: center;
+			}
+			.center{
+				text-align: center;
+				position: center;
+			}
+		</style>
 
-</head>
-<body>
-	<h1 id="center">
-		CS252 Project
-	</h1>
-	<h2 id ="center">
-	<a  href="1.html">Have a look</a>
-	<!-- <a onclick="check()">Check.js</a> -->
-	</h2>
-	<form  method="post">
-		<p align="center">
-			<textarea id="graph_input" name="Text1" cols="40" rows="5"></textarea><br>
-			<INPUT type="submit" onclick="check()" value="Send"> 
-		</p>
-	</form>
-	<div id="center">
-		<button type="button" id="center" style="" >
-			Trying cytoscape
-		</button>
-	
-	</div>
-	
-</body>
+
+	</head>
+	<body>
+		<h1 id="center">
+			CS252 Project
+		</h1>
+		<h2 id ="center">
+			<a  href="1.html">Have a look</a>
+			<!-- <a onclick="check()">Check.js</a> -->
+		</h2>
+		<form  method="post">
+			<p align="center">
+				<textarea id="graph_input" name="Text1" cols="40" rows="5"></textarea><br>
+				<INPUT type="submit" onclick="alert1()" value="Send"> 
+			</p>
+		</form>
+		<div id="center">
+			<input onclick="alert2()" type="submit" id="center" style="" >
+				Trying cytoscape
+			</input>
+
+		</div>
+		<script type="text/javascript">
+		// 	function alert2()
+		// 	{
+		// 		console.log("check clicked");
+		// 		var neo4j = require("neo4j-js");
+		// 		neo4j.connect('http://localhost:7474/db/data/', function (err, graph) {
+		// 	    if (err)
+		// 	        throw err;
+
+		// 	    else
+		// 	    {	
+		// 	  		// graph.createNodeIndex ( [Batch,] String name, Function callback )
+		// 			// graph.createNodeIndex ( [Batch,] String name, Object config, Function callback )
+		// 			// graph.createNodeIndex ( [Batch,] Function callback )
+		// 			// graph.createNodeIndex ( [Batch,] Object config, Function callback )
+		// 	    	graph.createNode({ prop1: 'node property', boolProperty: false }, function (err, node) {
+		// 			    console.log(err ? err : node);
+		// 			});
+		// 	    	graph.createNode({ prop1: 'friends', prop2: 'maggu', boolProperty: false }, function (err, node) {
+		// 			    console.log(err ? err : node);
+		// 			});
+		// 			var batch = graph.createBatch();
+
+		// 			//create a node and get another in the same request
+		// 			graph.createNode(batch, { key: 'value' }, function (error, node) {
+		// 			    //this will not be called until after batch.run()
+		// 			});
+		// 			graph.getNode(batch, 18, function (error, node) {
+		// 			    //this will not be called until after batch.run()
+		// 			});
+
+		// 			batch.run();
+		// 			console.log("check clicked");
+		// 		}
+		// 	}
+		// </script>
+	</body>
+
 </html>
