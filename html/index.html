@@ -1,36 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<!-- <title></title> -->
 	<script type="text/javascript" src="parse.js"></script>
-	<script type="text/javascript">
-		function run1(){
-
-			var neo4j = require('neo4j');
-			alert('hello');
-		/*	var db = new neo4j.GraphDatabase('http://localhost:7474/db/data');
-			alert('hello');
-			var node = db.createNode({hello: 'world'});     // instantaneous, but...
-				node.save(function (err, node) {    // ...this is what actually persists.
-				    if (err) {
-				    	alert('hello');
-				        console.error('Error saving new node to database:', err);
-				    } else {
-				    	alert('hello');
-				        console.log('Node saved to database with id:', node.id);
-				    }
-				}); */
-		}
-	</script>
+	<title>CS252 Assignment</title>
 	<style type="text/css">
-		#lastname{ width:400px; height: 400px; }
+	#center{
+		text-align: center;
+	}
 	</style>
+
 </head>
 <body>
+	<h1 id="center">
+		CS252 Project
+	</h1>
+	<h2 id ="center">
+	<a href="1.html">Have a look</a>
+	</h2>
 		<form  method="post">
 			<p align="center">
 				<textarea id="graph_input" name="Text1" cols="40" rows="5"></textarea><br>
-				<INPUT type="submit" onclick="run1()" value="Send"> 
+				<INPUT type="submit" onclick="alert1()" value="Send"> 
 			</p>
 		</form>
 
