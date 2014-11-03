@@ -4,7 +4,9 @@ neo4j.connect('http://localhost:7474/db/data/', function (err, graph) {
         throw err;
 
     else
+    {
     	graph.createNode({ prop1: 'node property', boolProperty: false }, function (err, node) {
 		    console.log(err ? err : node);
 		});
+	}
 });
