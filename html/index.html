@@ -16,6 +16,47 @@
 				/*position: center;*/
 			}
 		</style>
+		<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+		<script>
+			function loadXMLDoc()
+			{
+				var xmlhttp;
+				var param = document.getElementById('graph_input').value;
+				if (window.XMLHttpRequest)
+				  {// code for IE7+, Firefox, Chrome, Opera, Safari
+				  xmlhttp=new XMLHttpRequest();
+				  }
+				else
+				  {// code for IE6, IE5
+				  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+				  }
+				xmlhttp.open("GET","http://172.20.185.111:8080/getAllBMarks?param=" + param,true);
+				xmlhttp.send();
+
+				xmlhttp.onreadystatechange=function(){
+				 if(xmlhttp.readyState === 4){
+				  if ( xmlhttp.status===200)
+				    {
+						
+				    	document.getElementById("graph_input").value='sdads';
+				    }
+				}
+				  }
+				}
+
+			// $(function(){
+			//  $('#sendData').on('click', function(e){
+			//    // if(e.keyCode === 13) {
+			//      var parameters = { search: 'romit' };
+			//        $.get( 'http://172.20.185.111:8080/getAllBMarks',parameters, function(data) {
+			//        alert("Your book is overdue.");
+			//        console.log('asdas');
+			//      });
+			//     // };
+			//  });
+			// });
+
+			</script>
 
 
 	</head>
@@ -30,7 +71,7 @@
 		<form  method="post">
 			<p align="center">
 				<textarea id="graph_input" name="Text1" cols="40" rows="5"></textarea><br>
-				<INPUT type="submit" onclick="alert1()" value="Send"> 
+				<INPUT type="submit" onclick="loadXMLDoc()" value="Send" id='sendData'> 
 			</p>
 		</form>
 		<div id="center">
