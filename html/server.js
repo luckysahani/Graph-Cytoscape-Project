@@ -10,7 +10,7 @@ app.listen(8080);
 console.log('server runnning...');	
 
 // fetch all notes in home.
-app.get("/getAllBMarks", function(request, response)
+app.get("/create", function(request, response)
 {
 	console.log(request.query.search);
 
