@@ -1,16 +1,17 @@
 function alert1(){
 	var str = document.getElementById('graph_input');
 	var str1 = $.trim(str.value);
-	var split = str1.split('\n');
-	var len = split.length;
-	for (var i = 0; i < len; i++){
-		split[i] = $.trim(split[i]);
-		var split1 = split[i].split(' ');
-		$.get( '/create?param1=' + split1[0] + '&param2=' + split1[1] , function(data) {
-			console.log(data);
-			document.getElementById("graph_input").value=data.data+' and hardik are magoda';
-		});
-	}
-	console.log("alert1 clicked");
-	
+	str1 = str1.split('\n');
+	str1 = str1.join('; ');
+	$.get( '/create?param1=' +  str1, function(data){});
+	document.getElementById('graph_input').value = '';
+	console.log("alert1 clicked");	
+}
+
+function alert2(){
+	var str = document.getElementById('query_input');
+	var str1 = $.trim(str.value);
+	$.get( '/query?param1=' +  str1, function(data){});
+	document.getElementById('query_input').value = '';
+	console.log("alert2 clicked");	
 }
