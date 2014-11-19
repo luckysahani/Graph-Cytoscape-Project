@@ -6,7 +6,7 @@
 		<script type="text/javascript" src="json2.min.js"></script>
         <script type="text/javascript" src="AC_OETags.min.js"></script>
         <script type="text/javascript" src="cytoscapeweb.min.js"></script>
-
+        <script type="text/javascript" src="parse.js"></script>
         <script type="text/javascript">
             window.onload=function() {
                 // id of Cytoscape Web container div
@@ -56,58 +56,7 @@
 
 		</style>
 		<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-		<script>
-			// function loadXMLDoc()
-			// {
-			// 	$.get( '/create?param=' + document.getElementById("graph_input").value , function(data) {
-			// 		console.log(data);
-			// 		document.getElementById("graph_input").value=data.data+' and hardik are magoda';
 
-			//     });
-			// }
-			function create(){
-				var str = document.getElementById('graph_input');
-				var str1 = $.trim(str.value);
-				str1 = str1.split('\n');
-				str1 = str1.join('; ');
-				$.get( '/create?param1=' +  str1, function(data){
-					document.getElementById('graph_output').value=data;
-				});
-				document.getElementById('graph_input').value = '';
-				console.log("create clicked");	
-			}
-
-			function check_neighours(){
-				var str = document.getElementById('query_input');
-				var temp ='temp + \n';
-				var str1 = $.trim(str.value);
-				$.get( '/query?param1=' +  str1, function(dat1){
-				//	console.log(data);
-					document.getElementById('graph_output').value=dat1;
-
-					var obj_node = JSON.parse(dat1);
-					var div_id = "cytoscapeweb";
-                
-	            //    you could also use other formats (e.g. GraphML) or grab the network data via AJAX
-	            //    var networ_json = '{ "data": { "nodes": ' + dat1.b[0].id + '}}';
-	            	console.log(obj_node[0].b.data.Name);
-	              	var graph = JSON.parse(networ_json);  
-	                // initialization options
-	                var options = {
-	                    // where you have the Cytoscape Web SWF
-	                    swfPath: "/swf/CytoscapeWeb",
-	                    // where you have the Flash installer SWF
-	                    flashInstallerPath: "/swf/playerProductInstall"
-	                };
-	                
-	              //  init and draw
-	                var vis = new org.cytoscapeweb.Visualization(div_id, options);
-	                vis.draw({ network: graph });
-				});
-				document.getElementById('query_input').value = '';
-				console.log("check_neighours clicked");	
-			}
-			</script>
 
 
 	</head>
@@ -123,6 +72,8 @@
 				<button onclick="create()" value="Send" id='sendData'> Enter the node details with edges </button>
 				<textarea id="query_input" name="Text2" cols="40" rows="1"></textarea><br>
 				<button onclick="check_neighours()" value="Send" id='sendData' value='Get Neighbour'>Click to check neighours</button>
+				<button onclick="delete1()" value="Send" id='sendData'> Click to delete all data </button>
+				<button onclick="show_all_data()" value="Send" id='sendData'> Show all data </button>
 			</div>
 			<div id="output" style="">
 				<textarea id="graph_output" name="Text1" cols="80" rows="16"></textarea><br>
