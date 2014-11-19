@@ -3,6 +3,37 @@
 	<head>
 		<!-- <title></title> -->
 		<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+		<script type="text/javascript" src="json2.min.js"></script>
+        <script type="text/javascript" src="AC_OETags.min.js"></script>
+        <script type="text/javascript" src="cytoscapeweb.min.js"></script>
+
+        <script type="text/javascript">
+            window.onload=function() {
+                // id of Cytoscape Web container div
+                var div_id = "cytoscapeweb";
+                
+                // you could also use other formats (e.g. GraphML) or grab the network data via AJAX
+                var networ_json = {
+                    data: {
+                        nodes: [ { id: "1" }, { id: "2" } ],
+                        edges: [ { id: "2to1", target: "1", source: "2" } ]
+                    }
+                };
+                
+                // initialization options
+                var options = {
+                    // where you have the Cytoscape Web SWF
+                    swfPath: "/swf/CytoscapeWeb",
+                    // where you have the Flash installer SWF
+                    flashInstallerPath: "/swf/playerProductInstall"
+                };
+                
+                // init and draw
+                var vis = new org.cytoscapeweb.Visualization(div_id, options);
+                vis.draw({ network: networ_json });
+            };
+        </script>
+
 		<meta content="utf-8" http-equiv="encoding">
 		<title>CS252 teri maa ko</title>
 		<style type="text/css">
@@ -50,9 +81,33 @@
 				var str = document.getElementById('query_input');
 				var temp ='temp + \n';
 				var str1 = $.trim(str.value);
-				$.get( '/query?param1=' +  str1, function(data){
-					console.log(data);
-					document.getElementById('graph_output').value=data;
+				$.get( '/query?param1=' +  str1, function(dat1){
+				//	console.log(data);
+					document.getElementById('graph_output').value=dat1;
+
+					var graph = 
+                	console.log(graph);
+					var div_id = "cytoscapeweb";
+                
+	            //    you could also use other formats (e.g. GraphML) or grab the network data via AJAX
+	                var networ_json = {
+	                    data: {
+	                        nodes: [ { id: "1" }, { id: "2" } ],
+	                        edges: [ { id: "2to1", target: "1", source: "2" } ]
+	                    }
+	                };
+	                
+	                // initialization options
+	                var options = {
+	                    // where you have the Cytoscape Web SWF
+	                    swfPath: "/swf/CytoscapeWeb",
+	                    // where you have the Flash installer SWF
+	                    flashInstallerPath: "/swf/playerProductInstall"
+	                };
+	                
+	              //  init and draw
+	                var vis = new org.cytoscapeweb.Visualization(div_id, options);
+	                vis.draw({ network: graph });
 				});
 				document.getElementById('query_input').value = '';
 				console.log("check_neighours clicked");	
@@ -80,6 +135,9 @@
 
 
 		</div>
+		 <div id="cytoscapeweb">
+            Cytoscape Web will replace the contents of this div with your graph.
+        </div>
 		</body>
 
 </html>

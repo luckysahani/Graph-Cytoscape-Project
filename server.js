@@ -76,9 +76,9 @@ app.get("/query", function(request, response){
 					console.log(err.stack);
 				}
 				else{
-		            console.log(JSON.stringify(results, null, 5 ));
+
+		        //    console.log(JSON.stringify(results, null, 5 ));
 		            response.send(JSON.stringify(results, null, 5 ));
-		            // ... do something with the nodes and relationships we just grabbed 
 		        }
 				
 			});
