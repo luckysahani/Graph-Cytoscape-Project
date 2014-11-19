@@ -11,7 +11,10 @@ function alert1(){
 function alert2(){
 	var str = document.getElementById('query_input');
 	var str1 = $.trim(str.value);
-	$.get( '/query?param1=' +  str1, function(data){});
-	document.getElementById('query_input').value = '';
-	console.log("alert2 clicked");	
+	var ans = '';
+	$.get( '/query?param1=' +  str1, function(data){
+		console.log(ans);
+	});
+//	document.getElementById('query_input').value = ans;
+//	console.log(ans);
 }

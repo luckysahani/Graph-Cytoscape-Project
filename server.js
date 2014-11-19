@@ -80,7 +80,9 @@ app.get("/query", function(request, response){
 		            //var relationship = results[i].r;
 		            //var node = results[i].m;
 
-		            console.log(JSON.stringify(results, null, 5 )); // printing may help to visualize the returned structure
+		         //   console.log(JSON.stringify(results, null, 5 )); // printing may help to visualize the returned structure
+		         //   response.send(JSON.stringify(results, null, 5 ));
+		           		response.send('Hello');
 		            // ... do something with the nodes and relationships we just grabbed 
 		        }
 				
