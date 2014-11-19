@@ -57,14 +57,6 @@
 		</style>
 		<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 		<script>
-			// function loadXMLDoc()
-			// {
-			// 	$.get( '/create?param=' + document.getElementById("graph_input").value , function(data) {
-			// 		console.log(data);
-			// 		document.getElementById("graph_input").value=data.data+' and hardik are magoda';
-
-			//     });
-			// }
 			function create(){
 				var str = document.getElementById('graph_input');
 				var str1 = $.trim(str.value);
@@ -76,14 +68,18 @@
 				document.getElementById('graph_input').value = '';
 				console.log("create clicked");	
 			}
-
+			function delete1(){
+				$.get( '/delete', function(data){
+					document.getElementById('graph_output').value='All values are deleted \n'+data;
+				});
+				console.log('deleted');
+			}
 			function check_neighours(){
 				var str = document.getElementById('query_input');
 				var temp ='temp + \n';
 				var str1 = $.trim(str.value);
 				$.get( '/query?param1=' +  str1, function(dat1){
 				//	console.log(data);
-					document.getElementById('graph_output').value=dat1;
 
 					var graph = 
                 	console.log(graph);
@@ -108,6 +104,7 @@
 	              //  init and draw
 	                var vis = new org.cytoscapeweb.Visualization(div_id, options);
 	                vis.draw({ network: graph });
+					document.getElementById('graph_output').value=dat1;
 				});
 				document.getElementById('query_input').value = '';
 				console.log("check_neighours clicked");	
@@ -128,6 +125,7 @@
 				<button onclick="create()" value="Send" id='sendData'> Enter the node details with edges </button>
 				<textarea id="query_input" name="Text2" cols="40" rows="1"></textarea><br>
 				<button onclick="check_neighours()" value="Send" id='sendData' value='Get Neighbour'>Click to check neighours</button>
+				<button onclick="delete1()" value="Send" id='sendData'> Click to delete all data </button>
 			</div>
 			<div id="output" style="">
 				<textarea id="graph_output" name="Text1" cols="80" rows="16"></textarea><br>

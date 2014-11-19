@@ -61,6 +61,29 @@ app.get("/create", function(request, response){
 	});
 });
 
+app.get("/delete", function(request, response){
+	// var str1 = request.query.param1;
+	neo4j.connect('http://localhost:7474/db/data/', function (err, graph) {
+		if (err)
+			throw err;
+
+		else{	
+			var query1 = [
+			'MATCH a-[r]-(), b',
+			'DELETE r, a, b'
+			];
+
+			graph.query(query1.join('\n'), function (err, results) {
+				if (err) {
+					console.log(err);
+					console.log(err.stack);
+				}
+				response.send(JSON.stringify(results, null, 5 ));
+			})
+		}
+	});
+});
+
 app.get("/query", function(request, response){
 	var str1 = request.query.param1;
 	str1 = str1.trim();
