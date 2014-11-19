@@ -19,7 +19,7 @@ app.get("/create", function(request, response){
 	var str1 = request.query.param1;
 	var input = str1.split('; ');
 	var nodes = input[0].split(' ');
-	query += 'CREATE ';
+	query = 'CREATE ';
 	for (var i = 0; i<nodes.length; i++){
 		query += '(e'+i+': Node {Name: "'+nodes[i]+'"}), ';
 	}
@@ -30,25 +30,17 @@ app.get("/create", function(request, response){
 
 	query = query.substring(0, query.length - 2);
 	console.log(query);
-	response.send(JSON.stringify(query, null, 5 ));
 
 
 	neo4j.connect('http://localhost:7474/db/data/', function (err, graph) {
 		if (err)
+		{
+			console.log('error in connecting');
 			throw err;
+		}
 
 		else{	
-			/*var query1 = [
-			'MATCH a-[r]-(), b',
-			'DELETE r, a, b'
-			];
-
-			graph.query(query1.join('\n'), function (err, results) {
-				if (err) {
-					console.log(err);
-					console.log(err.stack);
-				}
-			});*/
+			console.log("entered here");
 			graph.query(query, function (err, results) {
 				if (err) {
 					console.log(err);
@@ -56,9 +48,10 @@ app.get("/create", function(request, response){
 				}
 				console.log(JSON.stringify(results, null, 5 ));
 			});
-			console.log("check clicked");
+			console.log("create clicked");
 		}
 	});
+	response.send(JSON.stringify(query, null, 5 ));
 });
 
 app.get("/delete", function(request, response){
