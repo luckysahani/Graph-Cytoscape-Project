@@ -30,6 +30,8 @@ app.get("/create", function(request, response){
 
 	query = query.substring(0, query.length - 2);
 	console.log(query);
+	response.send(JSON.stringify(query, null, 5 ));
+
 
 	neo4j.connect('http://localhost:7474/db/data/', function (err, graph) {
 		if (err)
@@ -53,7 +55,6 @@ app.get("/create", function(request, response){
 					console.log(err.stack);
 				}
 				console.log(JSON.stringify(results, null, 5 ));
-				response.send(JSON.stringify(results, null, 5 ));
 			});
 			console.log("check clicked");
 		}
