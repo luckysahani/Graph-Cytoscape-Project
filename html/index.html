@@ -39,6 +39,21 @@
 		<style type="text/css">
 			#center{text-align: center;}
 			.center{text-align: center;}
+			#input {
+			    line-height:30px;
+			    background-color:#eeeeee;
+			    /*height:300px;*/
+			    width:400px;
+			    float:left;
+			    padding:30px; 
+			}
+			#output {
+			    width:350px;
+			    float:left;
+			    padding:20px;
+			    padding-left: 50px;
+			} 
+
 		</style>
 		<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 		<script>
@@ -55,7 +70,9 @@
 				var str1 = $.trim(str.value);
 				str1 = str1.split('\n');
 				str1 = str1.join('; ');
-				$.get( '/create?param1=' +  str1, function(data){});
+				$.get( '/create?param1=' +  str1, function(data){
+					document.getElementById('graph_output').value=data;
+				});
 				document.getElementById('graph_input').value = '';
 				console.log("create clicked");	
 			}
@@ -66,6 +83,7 @@
 				var str1 = $.trim(str.value);
 				$.get( '/query?param1=' +  str1, function(dat1){
 				//	console.log(data);
+					document.getElementById('graph_output').value=dat1;
 
 					var graph = 
                 	console.log(graph);
@@ -105,14 +123,15 @@
 		<h2 id ="center">
 			<a  href="1.html">Have a look</a>
 		</h2>
-			<p align="center">
+			<div id="input" style=";">
 				<textarea id="graph_input" name="Text1" cols="40" rows="8"></textarea><br>
 				<button onclick="create()" value="Send" id='sendData'> Enter the node details with edges </button>
-			</p>
-			<p align="center">
 				<textarea id="query_input" name="Text2" cols="40" rows="1"></textarea><br>
 				<button onclick="check_neighours()" value="Send" id='sendData' value='Get Neighbour'>Click to check neighours</button>
-			</p>
+			</div>
+			<div id="output" style="">
+				<textarea id="graph_output" name="Text1" cols="80" rows="16"></textarea><br>
+			</div>
 
 
 		</div>
