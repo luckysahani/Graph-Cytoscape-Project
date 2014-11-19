@@ -98,13 +98,6 @@ table {
   margin: 0 -1px;
 }
 
-/*
- * Copyright (c) 2013 Thibaut Courouble
- * http://www.cssflow.com
- *
- * Licensed under the MIT License:
- * http://www.opensource.org/licenses/mit-license.php
- */
 body {
   font: 13px/20px 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #404040;
@@ -112,14 +105,15 @@ body {
 }
 
 .plans {
-  width: 836px;
-  margin: 50px auto;
+  width: 100%;
+  margin: 20px ;
   overflow: hidden;
 }
 
 .plan {
   float: left;
-  width: 150px;
+  width: 20%;
+  height: 400px;
   margin: 20px 2px;
   padding: 15px 25px;
   text-align: center;
