@@ -4,6 +4,7 @@ var http = require('http');
 var util = require('util'); 	
 var neo4j = require('neo4j-js');
 var query = '';
+var hrequest = require('request');
 
 var app = express();
 app.use(express.static(__dirname + '/html'));
@@ -145,7 +146,22 @@ app.get("/getnode", function(request, response){
 			else{
 				id1 = results[0].a.id;
 				id2 = results[1].a.id;
-	    		//console.log(id1	);
+	    		var query1 = '{  "to" : "http://localhost:7474/db/data/node/'+id2+'",  "max_depth" : 3,  "relationships" : {    "type" : "RELATED",    "direction" : "out" },  "algorithm" : "shortestPath" }';
+	    		var path = 'http://localhost:7474/db/data/node/'+id1+'/paths';
+	    		console.log(path);
+	    		hrequest.post({
+	    		headers:{
+					'Content-Type': 'application/json; charset=UTF-8',
+					'Accept': 'application/json'
+    			},
+			    uri: path,
+			    body: query1},
+			    function (error, response, body) {
+			    	console.log(error);
+			        if (!error && response.statusCode == 200) {
+			            console.log(body)
+			        }
+			    });
 			}
 		})
 
