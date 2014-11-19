@@ -80,7 +80,7 @@ app.get("/delete", function(request, response){
 app.get("/query", function(request, response){
 	var str1 = request.query.param1;
 	str1 = str1.trim();
-	var query = 'MATCH a-[:RELATED]->b where a.Name = "'+str1+'" return b';
+	var query = 'MATCH a-[r]->b where a.Name = "'+str1+'" return a,r,b';
 
 	neo4j.connect('http://localhost:7474/db/data/', function (err, graph) {
 		if (err)
