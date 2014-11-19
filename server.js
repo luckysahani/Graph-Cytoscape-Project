@@ -47,13 +47,13 @@ app.get("/create", function(request, response){
 					console.log(err.stack);
 				}
 			});*/
-
 			graph.query(query, function (err, results) {
 				if (err) {
 					console.log(err);
 					console.log(err.stack);
 				}
 				console.log(JSON.stringify(results, null, 5 ));
+				response.send(JSON.stringify(results, null, 5 ));
 			});
 			console.log("check clicked");
 		}
@@ -76,11 +76,8 @@ app.get("/query", function(request, response){
 					console.log(err.stack);
 				}
 				else{
-					//for (var i = 0; i < results.length; i++) {
-		            //var relationship = results[i].r;
-		            //var node = results[i].m;
-
-		            console.log(JSON.stringify(results, null, 5 )); // printing may help to visualize the returned structure
+		            console.log(JSON.stringify(results, null, 5 ));
+		            response.send(JSON.stringify(results, null, 5 ));
 		            // ... do something with the nodes and relationships we just grabbed 
 		        }
 				
