@@ -71,5 +71,12 @@ function check_neighours(){
 }
 
 function shortest_path(){
-	
+	var str = document.getElementById('query_input');
+	var temp ='temp + \n';
+	var str1 = $.trim(str.value);
+	$.get( '/getnode?node1=' +  str1, function(dat1){
+		var node = JSON.parse(dat1);
+		var id = node[0].ee.id;
+		document.getElementById('graph_output').value = id;
+	});
 }

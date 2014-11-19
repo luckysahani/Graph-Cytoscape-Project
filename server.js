@@ -130,16 +130,17 @@ app.get("/show_all_data", function(request, response){
 app.get("/getnode", function(request, response){
 	// var str1 = request.query.param1;
 	neo4j.connect('http://localhost:7474/db/data/', function (err, graph) {
-		var nod1 = request.query.nod1;
-		var nod2 = request.query.nod2;
+		var node1 = request.query.node1;
+		//var nod2 = request.query.nod2;
 
-		var get_node = 'MATCH (ee:Node) WHERE ee.Name = '+node1+'RETURN ee';
+		var get_node = 'MATCH (ee:Node) WHERE ee.Name = "'+node1+'" RETURN ee';
 		graph.query(get_node, function (err, results) {
 			if (err) {
 				console.log(err);
 				console.log(err.stack);
 			}
 			else{
+				console.log(get_node);
 				response.send(JSON.stringify(results, null, 5 ));
 			}
 		})
