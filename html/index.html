@@ -67,18 +67,14 @@
 				$.get( '/query?param1=' +  str1, function(dat1){
 				//	console.log(data);
 
-					var graph = 
-                	console.log(graph);
+				//	var graph = 
+                //	console.log(graph);
 					var div_id = "cytoscapeweb";
                 
 	            //    you could also use other formats (e.g. GraphML) or grab the network data via AJAX
-	                var networ_json = {
-	                    data: {
-	                        nodes: [ { id: "1" }, { id: "2" } ],
-	                        edges: [ { id: "2to1", target: "1", source: "2" } ]
-	                    }
-	                };
-	                
+	                var networ_json = '{ data: { nodes: [ { id: "1" }, { id: "2" } ], edges: [ { id: "2to1", target: "1", source: "2" } ]}}';
+
+	              	var graph = JSON.parse(networ_json);  
 	                // initialization options
 	                var options = {
 	                    // where you have the Cytoscape Web SWF
