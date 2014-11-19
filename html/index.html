@@ -81,14 +81,14 @@
 				$.get( '/query?param1=' +  str1, function(dat1){
 				//	console.log(data);
 
-					var graph = '{ "data": { "nodes": [';
+					var graph = '{ "dataSchema": { "nodes": [ { "name": "label", "type": "string" }], "edges": [ { "name": "label", "type": "string" } ] }, "data": { "nodes": [';
      				// console.log(graph);
 					var div_id = "cytoscapeweb";
 					var obj = JSON.parse(dat1);
 					// console.log(obj.length);
                 	
 					for(var i=0; i<obj.length; i++){
-						graph += '{ "id": "'+ obj[i].b.data.Name +'" }, ';
+						graph += '{ "id": "'+i+'", "label": "'+ obj[i].b.data.Name +'" }, ';
 					}
 					graph = graph.substring(0, graph.length - 2);
 					graph += ']}}';
@@ -115,7 +115,7 @@
 	              //  init and draw
 	                var vis = new org.cytoscapeweb.Visualization(div_id, options);
 	                vis.draw({ network: graphShow });
-					document.getElementById('graph_output').value=dat1;
+					// document.getElementById('graph_output').value=dat1;
 				});
 				document.getElementById('query_input').value = '';
 				console.log("check_neighours clicked");	
