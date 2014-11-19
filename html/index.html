@@ -85,13 +85,12 @@
 				//	console.log(data);
 					document.getElementById('graph_output').value=dat1;
 
-				//	var graph = 
-                //	console.log(graph);
+					var obj_node = JSON.parse(dat1);
 					var div_id = "cytoscapeweb";
                 
 	            //    you could also use other formats (e.g. GraphML) or grab the network data via AJAX
-	                var networ_json = '{ data: { nodes: [ { id: "1" }, { id: "2" } ], edges: [ { id: "2to1", target: "1", source: "2" } ]}}';
-
+	            //    var networ_json = '{ "data": { "nodes": ' + dat1.b[0].id + '}}';
+	            	console.log(obj_node[0].b.data.Name);
 	              	var graph = JSON.parse(networ_json);  
 	                // initialization options
 	                var options = {
