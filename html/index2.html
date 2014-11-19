@@ -19,9 +19,10 @@
   <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 </head>
 <body>
-  <div align="center" class="row" style="background-color: #c7cced;font-size:18px;padding:10px;">
+  <div align="center" style="font-size:28px;padding:10px;">
     CS252 Project
   </div> 
+  <hr>
   <div class="plans">
     <div class="plan">
       <h3 class="plan-title">Create a Node</h3>
@@ -35,39 +36,43 @@
       <a href="#" class="plan-button">Click to create</a>
     </div>
     <div class="plan">
-      <p class="plan-recommended">Recommended</p>
-      <h3 class="plan-title">Team</h3>
+      <h3 class="plan-title">Nearest Neighours</h3>
+      <textarea name="Text2" cols="30" row="18" style="height:300px"  ></textarea><br>
       <!-- <p class="plan-price">$49 <span class="plan-unit">per month</span></p>
       <ul class="plan-features">
         <li class="plan-feature">5 <span class="plan-feature-name">websites</span></li>
         <li class="plan-feature">20<span class="plan-feature-unit">GB</span> <span class="plan-feature-name">storage</span></li>
         <li class="plan-feature">10 <span class="plan-feature-name">users</span></li>
       </ul> -->
-      <a href="#" class="plan-button">Choose Plan</a>
+      <a href="#" class="plan-button">Click to query</a>
     </div>
     <div class="plan">
-      <!-- <h3 class="plan-title">Premium</h3>
-      <p class="plan-price">$99 <span class="plan-unit">per month</span></p>
-      <ul class="plan-features">
+      <h3 class="plan-title">Some more queries</h3>
+      <!-- <p class="plan-price">$99 <span class="plan-unit">per month</span></p> -->
+    <!--   <ul class="plan-features">
         <li class="plan-feature">20 <span class="plan-feature-name">websites</span></li>
         <li class="plan-feature">50<span class="plan-feature-unit">GB</span> <span class="plan-feature-name">storage</span></li>
         <li class="plan-feature">25 <span class="plan-feature-name">users</span></li>
-      </ul>
-      <a href="#" class="plan-button">Choose Plan</a> -->
+      </ul> -->
+      <br><a href="#" class="plan-button">Delete all Node data</a>
+      <br><a href="#" class="plan-button">Show all data</a>
+
     </div>
     <div class="plan">
-      <!-- <h3 class="plan-title">Corporate</h3>
-      <p class="plan-price">$249 <span class="plan-unit">per month</span></p>
-      <ul class="plan-features">
+      <h3 class="plan-title">Get Node Data</h3>
+      <textarea name="Text2" cols="30" row="8" style="height:300px"  ></textarea><br>
+     <!--  <ul class="plan-features">
         <li class="plan-feature">&infin; <span class="plan-feature-name">websites</span></li>
         <li class="plan-feature">200<span class="plan-feature-unit">GB</span> <span class="plan-feature-name">storage</span></li>
         <li class="plan-feature">&infin; <span class="plan-feature-name">users</span></li>
-      </ul>
-      <a href="#" class="plan-button">Choose Plan</a> -->
+      </ul> -->
+      <a href="#" class="plan-button">Click to get data</a>
     </div>
   </div>
 
-  <div class="about">
+  <div class="plan  " style="width:40%;margin:20px;border:3px solid;">
+  <h3 class="plan-title">Your Output</h3>
+  <textarea id="graph_output" name="Text1" cols="60" rows="20"></textarea><br>
     <!-- <p class="about-links">
       <a href="http://www.cssflow.com/snippets/plans-pricing-table" target="_parent">View Article</a>
       <a href="http://www.cssflow.com/snippets/plans-pricing-table.zip" target="_parent">Download</a>
@@ -77,6 +82,9 @@
       <a href="http://www.cssflow.com/mit-license" target="_blank">MIT License</a><br>
       Original PSD by <a href="http://dribbble.com/shots/1184256-Pricing-table-free-PSD" target="_blank">Benoît Philibert</a>
     </p> -->
+  </div>
+  <div id="cytoscapeweb" class="plan" align="center">
+    Cytoscape Web will replace the contents of this div with your graph.
   </div>
 </body>
 </html>

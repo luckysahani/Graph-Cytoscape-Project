@@ -24,14 +24,14 @@
 	position: relative;
 }
 #cytoscapeweb{
-	margin: 10px;
+	margin: 20px;
 	float: right;
 	/*overflow: hidden;*/
 	padding: 20px;
 	/*padding-left: 100px;*/
 	width: 45%;
 	/*right:0;*/
-	height: 350px;
+	height: 400px;
 	border: 1px solid;
 	position: relative;
 	/*margin-top: 300px; */
