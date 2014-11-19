@@ -71,7 +71,7 @@ function check_neighours(){
 }
 
 function shortest_path(){
-	var str = document.getElementById('query_input');
+	var str = document.getElementById('query_getnode');
 	var str1 = $.trim(str.value);
 	str1 = str1.split(' ');
 //	var temp ='temp + \n';
