@@ -51,7 +51,7 @@ function check_neighours(){
 		graph += ']}}';
 
 		var graphShow = JSON.parse(graph);
-		// document.getElementById('graph_output').value = graph;
+		 document.getElementById('graph_output').value = dat1;
 
 	    var options = {
 	        // where you have the Cytoscape Web SWF
@@ -63,9 +63,13 @@ function check_neighours(){
 		//  init and draw
 		var vis = new org.cytoscapeweb.Visualization(div_id, options);
 		vis.draw({ network: graphShow });
-		document.getElementById('graph_output').value = graph;
+		// document.getElementById('graph_output').value = graph;
 	});
 
 	document.getElementById('query_input').value = '';
 	console.log("check_neighours clicked");	
+}
+
+function shortest_path(){
+	
 }
