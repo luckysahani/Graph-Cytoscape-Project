@@ -131,17 +131,21 @@ app.get("/getnode", function(request, response){
 	// var str1 = request.query.param1;
 	neo4j.connect('http://localhost:7474/db/data/', function (err, graph) {
 		var node1 = request.query.node1;
+		var node2 = request.query.node2;
 		//var nod2 = request.query.nod2;
 
-		var get_node = 'MATCH (ee:Node) WHERE ee.Name = "'+node1+'" RETURN ee';
+		var get_node = 'MATCH (a:Node) WHERE a.Name = "'+node1+ '"or a.Name ="' + node2 +'" RETURN a';
+		var id1 = '';
+		var id2 = '';
 		graph.query(get_node, function (err, results) {
 			if (err) {
 				console.log(err);
 				console.log(err.stack);
 			}
 			else{
-				console.log(get_node);
-				response.send(JSON.stringify(results, null, 5 ));
+				id1 = results[0].a.id;
+				id2 = results[1].a.id;
+	    		//console.log(id1	);
 			}
 		})
 

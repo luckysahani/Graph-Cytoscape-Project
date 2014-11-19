@@ -72,11 +72,19 @@ function check_neighours(){
 
 function shortest_path(){
 	var str = document.getElementById('query_input');
-	var temp ='temp + \n';
 	var str1 = $.trim(str.value);
-	$.get( '/getnode?node1=' +  str1, function(dat1){
+	str1 = str1.split(' ');
+//	var temp ='temp + \n';
+	var id1 = '';
+	var id2 = '';
+	// console.log(str1[1]);
+	$.get( '/getnode?node1=' +  str1[0] + '&node2=' + str1[1], function(dat1){
 		var node = JSON.parse(dat1);
-		var id = node[0].ee.id;
-		document.getElementById('graph_output').value = id;
+		id1 = node[0].a.id;
 	});
+	// $.get( '/getnode?node1=' +  str1[1], function(dat1){
+	// 	var node = JSON.parse(dat1);
+	// 	id2 = node[0].a.id;
+	// });
+		document.getElementById('graph_output').value = id2;
 }
