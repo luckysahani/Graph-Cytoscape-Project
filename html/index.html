@@ -42,20 +42,38 @@
 			#input {
 			    line-height:30px;
 			    background-color:#eeeeee;
-			    /*height:300px;*/
-			    width:400px;
-			    float:left;
-			    padding:30px; 
-			}
-			#output {
-			    width:350px;
+			    height:250px;
+			    width:45%;
 			    float:left;
 			    padding:20px;
-			    padding-left: 50px;
+			    margin: 10px;
+			    /*padding-right: 10px; */
+			    /*padding-left: 30px; */
+				overflow: hidden;
+				position: relative;
+			}
+			#output {
+			    width:45%;
+			    height: 350px;
+			    float:left;
+			    padding:20px;
+			    margin: 10px;
+			    /*padding-left: 50px;*/
+				overflow: hidden;
+				position: relative;
 			}
 			#cytoscapeweb{
-				width: 350px;
+				margin: 10px;
+				float: right;
+				/*overflow: hidden;*/
+				padding: 20px;
+				/*padding-left: 100px;*/
+				width: 45%;
+				/*right:0;*/
 				height: 350px;
+				border: 1px solid;
+				position: relative;
+				/*margin-top: 300px; */
 			}
 
 		</style>
@@ -71,20 +89,21 @@
 		<h2 id ="center">
 			<a  href="1.html">Have a look</a>
 		</h2>
-			<div id="input" style=";">
-				<textarea id="graph_input" name="Text1" cols="40" rows="8"></textarea><br>
+			<div id="input" style="">
+				<textarea id="graph_input" name="Text1" cols="70" rows="12"></textarea><br>
 				<button onclick="create()" value="Send" id='sendData'> Enter the node details with edges </button>
-				<textarea id="query_input" name="Text2" cols="40" rows="1"></textarea><br>
+			</div>
+			<div id="input" style="">
+				<textarea id="query_input" name="Text2" cols="70" rows="12"></textarea><br>
 				<button onclick="check_neighours()" value="Send" id='sendData' value='Get Neighbour'>Click to check neighours</button>
 				<button onclick="delete1()" value="Send" id='sendData'> Click to delete all data </button>
 				<button onclick="show_all_data()" value="Send" id='sendData'> Show all data </button>
 			</div>
 			<div id="output" style="">
-				<textarea id="graph_output" name="Text1" cols="80" rows="16"></textarea><br>
+				<textarea id="graph_output" name="Text1" cols="70" rows="20"></textarea><br>
 			</div>
 
 
-		</div>
 		 <div id="cytoscapeweb" align="center">
             Cytoscape Web will replace the contents of this div with your graph.
         </div>
