@@ -11,7 +11,9 @@ function alert1(){
 function alert2(){
 	var str = document.getElementById('query_input');
 	var str1 = $.trim(str.value);
-	$.get( '/query?param1=' +  str1, function(data){});
+	$.get( '/query?param1=' +  str1, function(data){
+		console.log(data);
+	});
 	document.getElementById('query_input').value = '';
 	console.log("alert2 clicked");	
 }
