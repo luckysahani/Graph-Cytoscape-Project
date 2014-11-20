@@ -52,13 +52,13 @@ body {
   background: #eeebe4;
 }
 
-.plans {
+.cs252graphs {
   width: 100%;
   margin: 20px ;
   overflow: hidden;
 }
 
-.plan {
+.cs252graph {
   float: left;
   width: 20%;
   height: 400px;
@@ -72,13 +72,13 @@ body {
   border-radius: 5px;
 }
 
-.plan-title {
+.cs252graph-title {
   margin-bottom: 12px;
   font-size: 24px;
   color: #36bce6;
 }
 
-.plan-price {
+.cs252graph-price {
   margin-bottom: 20px;
   line-height: 1;
   font-size: 28px;
@@ -86,7 +86,7 @@ body {
   color: #fd935a;
 }
 
-.plan-unit {
+.cs252graph-unit {
   display: block;
   margin-top: 5px;
   font-size: 13px;
@@ -94,7 +94,7 @@ body {
   color: #aaa;
 }
 
-.plan-features {
+.cs252graph-features {
   width: 120px;
   margin: 20px auto 15px;
   padding: 15px 0 0 15px;
@@ -102,28 +102,28 @@ body {
   text-align: left;
 }
 
-.plan-feature {
+.cs252graph-feature {
   line-height: 20px;
   font-size: 24px;
   font-weight: 500;
   color: #333;
 }
-.plan-feature + .plan-feature {
+.cs252graph-feature + .cs252graph-feature {
   margin-top: 5px;
 }
 
-.plan-feature-unit {
+.cs252graph-feature-unit {
   margin-left: 2px;
   font-size: 16px;
 }
 
-.plan-feature-name {
+.cs252graph-feature-name {
   font-size: 13px;
   font-weight: normal;
   color: #aaa;
 }
 
-.plan-button {
+.cs252graph-button {
   position: relative;
   display: block;
   line-height: 40px;
@@ -138,13 +138,13 @@ body {
   border-color: rgba(0, 0, 0, 0.15);
   border-radius: 4px;
 }
-.plan-button:active {
+.cs252graph-button:active {
   top: 2px;
   margin-bottom: 2px;
   border-bottom: 0;
 }
 
-.plan-highlight {
+.cs252graph-highlight {
   margin-top: 0;
   margin-bottom: 0;
   padding-left: 15px;
@@ -152,7 +152,7 @@ body {
   width: 170px;
   border: 4px solid #37bbe6;
 }
-.plan-highlight .plan-button {
+.cs252graph-highlight .cs252graph-button {
   font-size: 18px;
   line-height: 49px;
   background: #37bce5;
@@ -160,7 +160,7 @@ body {
   border-color: rgba(0, 0, 0, 0.15);
 }
 
-.plan-recommended {
+.cs252graph-recommended {
   width: 160px;
   margin: -15px auto 15px;
   padding-bottom: 2px;
