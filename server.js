@@ -105,6 +105,33 @@ app.get("/query", function(request, response){
 });
 
 
+app.get("/drawgraph", function(request, response){
+	// var str1 = request.query.param1;
+	// str1 = str1.trim();
+	var query = 'MATCH a-[r]->b return a,r,b';
+
+	neo4j.connect('http://localhost:7474/db/data/', function (err, graph) {
+		if (err)
+			throw err;
+
+		else{	
+			graph.query(query, function (err, results) {
+				if (err) {
+					console.log(err);
+					console.log(err.stack);
+				}
+				else{
+
+		        //    console.log(JSON.stringify(results, null, 5 ));
+		            response.send(JSON.stringify(results, null, 5 ));
+		        }
+				
+			});
+		}
+	});
+});
+
+
 app.get("/show_all_data", function(request, response){
 	// var str1 = request.query.param1;
 	neo4j.connect('http://localhost:7474/db/data/', function (err, graph) {
@@ -113,8 +140,7 @@ app.get("/show_all_data", function(request, response){
 
 		else{	
 			var query1 = [
-			'MATCH a',
-			'RETURN a'
+			 'MATCH a-[r]->b RETURN a,r,b'
 			];
 
 			graph.query(query1.join('\n'), function (err, results) {
@@ -123,12 +149,12 @@ app.get("/show_all_data", function(request, response){
 					console.log(err.stack);
 				}
 				response.send(JSON.stringify(results, null, 5 ));
-			})
+			})	
 		}
 	});
 });
 
-app.get("/getnode", function(request, response){
+app.get("/shortest", function(request, response){
 	// var str1 = request.query.param1;
 	neo4j.connect('http://localhost:7474/db/data/', function (err, graph) {
 		var node1 = request.query.node1;
@@ -168,19 +194,60 @@ app.get("/getnode", function(request, response){
 	});
 });
 
-app.get("/levels", function(request, response){
+app.get("/levels_node", function(request, response){
 	neo4j.connect('http://localhost:7474/db/data/', function (err, graph) {
 		var node = request.query.node;
 		var depth = request.query.depth;
 
-		var get_levels = 'MATCH a-[r:RELATED*1..2]->(x)where a.Name='+node+' RETURN collect(distinct r)'
+		var get_levels = 'MATCH a-[r:RELATED*1..'+depth+']->(b) WHERE a.Name="'+node+'" RETURN DISTINCT b'
 		graph.query(get_levels, function (err, results) {
 			if (err) {
 				console.log(err);
 				console.log(err.stack);
 			}
 			else{
-				console.log(results);
+				//response.send(results);
+				response.send(JSON.stringify(results, null, 5 ));
+			}
+		});
+
+	});
+});
+
+app.get("/levels_rel", function(request, response){
+	neo4j.connect('http://localhost:7474/db/data/', function (err, graph) {
+		var node = request.query.node;
+		var depth = request.query.depth;
+
+		var get_levels = 'MATCH a-[r:RELATED*1..'+depth+']->b WHERE a.Name="'+node+'" RETURN r'
+		graph.query(get_levels, function (err, results) {
+			if (err) {
+				console.log(err);
+				console.log(err.stack);
+			}
+			else{
+				//response.send(results);
+				response.send(JSON.stringify(results, null, 5 ));
+			}
+		});
+
+	});
+});
+
+app.get("/get_node", function(request, response){
+	neo4j.connect('http://localhost:7474/db/data/', function (err, graph) {
+		var node = request.query.node;
+
+		var get_levels = 'MATCH a WHERE a.Name="'+node+'" RETURN a'
+		graph.query(get_levels, function (err, results) {
+			if (err) {
+				console.log(err);
+				console.log(err.stack);
+			}
+			else{
+				//response.send(results);
+				console.log(get_levels);
+				response.send(JSON.stringify(results, null, 5 ));
 			}
 		});
 
