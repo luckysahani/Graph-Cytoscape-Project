@@ -38,9 +38,9 @@ function check_neighours(){
 							nodes: [ { 
 								name: "label", type: "string" 
 							} ], 
-							edges: [ { 
-								name: "label", type: "string" 
-							} ] 
+							edges: [ {	name: "label", type: "string"},
+								{name: "directed", type: "boolean", defValue: true}
+							] 
 						}, 
 						data: { 
 							nodes: [],
