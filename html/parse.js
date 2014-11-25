@@ -215,8 +215,10 @@ function drawgraph(){
 		var element = {};
 		element.id = ''+obj.length+'';
 		element.label = obj[0].a.data.Name;
+		console.log(obj[0]);
 		graph.data.nodes.push(element);
-		for(var i=0; i<obj.length; i++){
+		for(var i=0; i<obj.length; i++)
+		{
 			var element = {};
 			element.id = ''+i+'';
 			element.label = obj[i].b.data.Name;
@@ -247,7 +249,7 @@ function drawgraph(){
 	    	visualStyle: visual_style,
 	    	network: graph,
 	    	edgeLabelsVisible: true,
-            layout: "Tree"
+            // layout: "Tree"
 	    };
 	    
 		//  init and draw
