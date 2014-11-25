@@ -18,10 +18,18 @@ function show_all_data(){
 }
 
 function delete1(){
-	$.get( '/delete', function(data){
-		document.getElementById('graph_output').value='All values are deleted \n'+data;
-	});
-	console.log('deleted');
+    var x;
+    if (confirm("Are you sure about deleting your data?") == true) 
+    {
+		$.get( '/delete', function(data){
+			document.getElementById('graph_output').value='All values are deleted \n'+data;
+		});
+		console.log('deleted');
+    } 
+    else
+    {
+    	console.log('delete cancelled');
+    }
 }
 
 function check_neighours(){
