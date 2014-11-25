@@ -145,3 +145,14 @@ function shortest_path(){
 	// });
 		document.getElementById('graph_output').value = id2;
 }
+
+
+function levels(){
+	var str = document.getElementById('query_getnode');
+	var str1 = $.trim(str.value);
+	str1 = str1.split(' ');
+
+	console.log(str1[1]);
+	$.get( '/levels?node=' +  str1[0] + '&depth=' + str1[1], function(data){
+	});
+}

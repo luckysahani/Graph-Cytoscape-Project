@@ -167,3 +167,22 @@ app.get("/getnode", function(request, response){
 
 	});
 });
+
+app.get("/levels", function(request, response){
+	neo4j.connect('http://localhost:7474/db/data/', function (err, graph) {
+		var node = request.query.node;
+		var depth = request.query.depth;
+
+		var get_levels = 'MATCH a-[r:RELATED*1..2]->(x)where a.Name='+node+' RETURN collect(distinct r)'
+		graph.query(get_levels, function (err, results) {
+			if (err) {
+				console.log(err);
+				console.log(err.stack);
+			}
+			else{
+				console.log(results);
+			}
+		});
+
+	});
+});
