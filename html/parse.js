@@ -38,7 +38,7 @@ function check_neighours(){
 	var str1 = $.trim(str.value);
 
 	$.get( '/query?param1=' +  str1, function(dat1){
-		//	console.log(data);
+			console.log(dat1);
 
 		var graph = { 
 						dataSchema: 
@@ -123,14 +123,14 @@ function check_neighours(){
 	    var draw_options ={
 	    	visualStyle: visual_style,
 	    	network: graph,
-	    	edgeLabelsVisible: true,
-            layout: "Tree"
+	    	// edgeLabelsVisible: true,
+            layout: "Circle"
 	    };
 	    
 		//  init and draw
 		var vis = new org.cytoscapeweb.Visualization(div_id, options);
 		vis.draw(draw_options);
-		document.getElementById('graph_output').value = JSON.stringify(visual_style);
+		// document.getElementById('graph_output').value = JSON.stringify(visual_style);
 	});
 
 	document.getElementById('query_input').value = '';
@@ -153,7 +153,7 @@ function shortest_path(){
 	// 	var node = JSON.parse(dat1);
 	// 	id2 = node[0].a.id;
 	// });
-		document.getElementById('graph_output').value = id2;
+		// document.getElementById('graph_output').value = id2;
 }
 
 

@@ -154,6 +154,7 @@ app.get("/show_all_data", function(request, response){
 	});
 });
 
+
 app.get("/shortest", function(request, response){
 	// var str1 = request.query.param1;
 	neo4j.connect('http://localhost:7474/db/data/', function (err, graph) {
@@ -172,20 +173,24 @@ app.get("/shortest", function(request, response){
 			else{
 				id1 = results[0].a.id;
 				id2 = results[1].a.id;
-	    		var query1 = '{  "to" : "http://localhost:7474/db/data/node/'+id2+'",  "max_depth" : 3,  "relationships" : {    "type" : "RELATED",    "direction" : "out" },  "algorithm" : "shortestPath" }';
+	    		var query1 = '{  "to" : "http://localhost:7474/db/data/node/'+id2+'", "max_depth" : 1000, "relationships" : {    "type" : "RELATED",    "direction" : "out" },  "algorithm" : "shortestPath" }';
 	    		var path = 'http://localhost:7474/db/data/node/'+id1+'/paths';
-	    		console.log(path);
+	    		// console.log(id1 +" "+ id2);
 	    		hrequest.post({
-	    		headers:{
-					'Content-Type': 'application/json; charset=UTF-8',
-					'Accept': 'application/json'
-    			},
-			    uri: path,
-			    body: query1},
+		    		headers:{
+						'Content-Type': 'application/json; charset=UTF-8',
+						'Accept': 'application/json'
+	    			},
+				    uri: path,
+				    body: query1
+				},
 			    function (error, response, body) {
-			    	console.log(error);
+			    	// console.log(error);
 			        if (!error && response.statusCode == 200) {
-			            console.log(body)
+			            // console.log(body);
+			            // var obj = JSON.parse(body);
+			            // console.log(obj[0].nodes[0]);
+		            	response1.send(body);
 			        }
 			    });
 			}
