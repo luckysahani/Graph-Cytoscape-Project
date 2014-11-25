@@ -153,3 +153,109 @@ function shortest_path(){
 	// });
 		document.getElementById('graph_output').value = id2;
 }
+
+
+
+
+function drawgraph(){
+	// var str = document.getElementById('query_input');
+	var temp ='temp + \n';
+	// var str1 = $.trim(str.value);
+
+	$.get( '/drawgraph', function(dat1){
+		//	console.log(data);
+
+		var graph = { 
+						dataSchema: 
+						{ 
+							nodes: [ { 
+								name: "label", type: "string" 
+							} ], 
+							edges: [ {	name: "label", type: "string"},
+								{name: "directed", type: "boolean", defValue: true}
+							] 
+						}, 
+						data: { 
+							nodes: [],
+							edges: []
+						}
+					};
+		var visual_style = {
+            global: {
+                backgroundColor: "#ABCFD6"
+            },
+            nodes: {
+                shape: "OCTAGON",
+                borderWidth: 3,
+                borderColor: "#ffffff",
+                size: {
+                    defaultValue: 25,
+                   // continuousMapper: { attrName: "weight", minValue: 25, maxValue: 75 }
+                },
+                color: {
+                    discreteMapper: {
+                        attrName: "id",
+                        entries: [
+                            
+                        ]
+                    }
+                },
+                labelHorizontalAnchor: "center"
+            },
+            edges: {
+                width: 3,
+                color: "#0B94B1"
+            }
+        };
+		// console.log(graph);
+		var div_id = "cytoscapeweb2";
+		var obj = JSON.parse(dat1);
+		// console.log(obj.length);
+
+		var element = {};
+		element.id = ''+obj.length+'';
+		element.label = obj[0].a.data.Name;
+		graph.data.nodes.push(element);
+		for(var i=0; i<obj.length; i++){
+			var element = {};
+			element.id = ''+i+'';
+			element.label = obj[i].b.data.Name;
+			graph.data.nodes.push(element);
+			element = {};
+			element.attrValue = ''+i+'';
+			element.value = "#7FFF00";
+			visual_style.nodes.color.discreteMapper.entries.push(element);
+		}
+
+		for(var i=0; i<obj.length; i++){
+			var element = {};
+			element.id = ''+ i +'_link';
+			element.target = '' + i + '';
+			element.source = ''+obj.length + '';
+			element.label = 'edge';
+			graph.data.edges.push(element);
+		}
+		
+
+	    var options = {
+	        swfPath: "/swf/CytoscapeWeb",
+	        flashInstallerPath: "/swf/playerProductInstall"
+
+	    };
+
+	    var draw_options ={
+	    	visualStyle: visual_style,
+	    	network: graph,
+	    	edgeLabelsVisible: true,
+            layout: "Tree"
+	    };
+	    
+		//  init and draw
+		var vis = new org.cytoscapeweb.Visualization(div_id, options);
+		vis.draw(draw_options);
+		document.getElementById('graph_output').value = JSON.stringify(visual_style);
+	});
+
+	// document.getElementById('drawgraph').value = '';
+	console.log("drawgraph is done");	
+}

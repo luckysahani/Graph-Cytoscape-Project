@@ -36,3 +36,16 @@
 	position: relative;
 	/*margin-top: 300px; */
 }
+#cytoscapeweb2{
+	margin: 20px;
+	float: right;
+	/*overflow: hidden;*/
+	padding: 20px;
+	/*padding-left: 100px;*/
+	width: 90%;
+	/*right:0;*/
+	height: 400px;
+	border: 1px solid;
+	position: relative;
+	/*margin-top: 300px; */
+}
