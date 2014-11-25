@@ -105,6 +105,33 @@ app.get("/query", function(request, response){
 });
 
 
+app.get("/drawgraph", function(request, response){
+	// var str1 = request.query.param1;
+	// str1 = str1.trim();
+	var query = 'MATCH a-[r]->b return a,r,b';
+
+	neo4j.connect('http://localhost:7474/db/data/', function (err, graph) {
+		if (err)
+			throw err;
+
+		else{	
+			graph.query(query, function (err, results) {
+				if (err) {
+					console.log(err);
+					console.log(err.stack);
+				}
+				else{
+
+		        //    console.log(JSON.stringify(results, null, 5 ));
+		            response.send(JSON.stringify(results, null, 5 ));
+		        }
+				
+			});
+		}
+	});
+});
+
+
 app.get("/show_all_data", function(request, response){
 	// var str1 = request.query.param1;
 	neo4j.connect('http://localhost:7474/db/data/', function (err, graph) {
