@@ -70,6 +70,8 @@ body {
   border: 2px solid #e5ded6;
   border-color: rgba(0, 0, 0, 0.1);
   border-radius: 5px;
+  box-shadow:  2px 2px 2px #888888;
+  margin-right: 6px;
 }
 
 .cs252graph-title {
@@ -133,10 +135,14 @@ body {
   text-align: center;
   text-decoration: none;
   text-shadow: 0 1px rgba(0, 0, 0, 0.1);
-  background: #fd935c;
+  background: #67B1D2;
   border-bottom: 2px solid #cf7e3b;
   border-color: rgba(0, 0, 0, 0.15);
   border-radius: 4px;
+  width:100%;
+  margin-bottom:10px;
+  margin-top:10px;
+  height:40px;
 }
 .cs252graph-button:active {
   top: 2px;

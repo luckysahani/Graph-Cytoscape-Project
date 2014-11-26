@@ -5,7 +5,7 @@
 <!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>CS252 Project</title>
+  <title>Graph Visualisation</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <link rel="stylesheet" href="css/style.css">
   <!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
@@ -28,48 +28,52 @@
 </style>
 <body onload="drawgraph()">
   <div align="center" style="font-size:28px;padding:10px;">
-    CS252 Project
+    Graph Visualisation
   </div> 
   <hr>
   <div class="cs252graphs">
     <div class="cs252graph">
-      <h3 class="cs252graph-title">Create a Node</h3>
+      <h3 class="cs252graph-title">Create a Graph</h3>
       <textarea id="graph_input"  name="Text1" cols="30" row="18" style="height:300px"  ></textarea><br>
-      <button onclick="create()" value="Send" class="cs252graph-button" id='sendData'> Enter the node details with edges </button>
+      <button onclick="create()" value="Send" class="cs252graph-button" id='sendData'> Make Graph </button>
     </div>
     <div class="cs252graph">
-      <h3 class="cs252graph-title">Nearest Neighours</h3>
-      <textarea name="Text2" id="query_input" cols="30" row="18" style="height:300px"  ></textarea><br>
-      <button onclick="check_neighours()" class="cs252graph-button" value="Send" id='sendData' value='Get Neighbour'>Click to check neighours</button>
+      <h3 class="cs252graph-title">Queries</h3>
+      <textarea name="Text2" id="query_input" cols="30" row="18" style="height:100px"  ></textarea><br>
+      <button onclick="check_neighours()" class="cs252graph-button" value="Send" id='sendData' value='Get Neighbour'>Check neighours</button>
+      <button onclick="dijkstras()" class="cs252graph-button" value="Send" id="SendData"> Dijkstra </button>
+      <button onclick="shortest_path()" class="cs252graph-button" value="Send" id="SendData"> Shortest Path </button>
+      <button onclick="levels()" class="cs252graph-button" value="Send" id="SendData"> Get levels </button>
     </div>
+    <div id="cytoscapeweb" class="cs252graph" align="center" style="text-align:center;">
+      <div style="margin-top:30%;font-size:20px">
+        Cytoscape Web will replace the contents of this div with your graph.
+      </div>
+    </div>
+  </div>
+  <div class="cs252graphs">
     <div class="cs252graph">
-      <h3 class="cs252graph-title">Some more queries</h3><br>
-      <button onclick="delete1()" class="cs252graph-button" value="Send" id='sendData'> Click to delete all data </button><br>
-      <button onclick="show_all_data()" class="cs252graph-button" value="Send" id='sendData'> Show all data </button><br>
+      <h3 class="cs252graph-title">Additional Queries</h3><br>
+      <button onclick="delete1()" class="cs252graph-button" value="Send" id='sendData'> Click to delete all data </button>
+      <button onclick="show_all_data()" class="cs252graph-button" value="Send" id='sendData'> Show all data </button>
       <button onclick="drawgraph()" class="cs252graph-button" value="Send" id='sendData'> Refresh Graph </button>
     </div>
     <div class="cs252graph">
-      <h3 class="cs252graph-title">GetNode</h3>
-      <textarea name="Text3" id="query_getnode" cols="30" row="25" style="height: 170px"   ></textarea><br>
-      <button onclick="dijkstras()" class="cs252graph-button" value="Send" id="SendData"> Get node </button><br>
-      <!-- <button onclick="levels()" class="cs252graph-button" value="Send" id="SendData"> Get levels </button> -->
-      <!-- <button onclick="delete_edge()" class="cs252graph-button" value="Send" id="SendData"> Delete Edge </button> -->
-      <!-- <button onclick="update_node()" class="cs252graph-button" value="Send" id="SendData"> Add Node </button> -->
-      <button onclick="create_edge()" class="cs252graph-button" value="Send" id="SendData"> Create Edge </button><br>
+      <h3 class="cs252graph-title">Edit Graph</h3>
+      <textarea name="Text3" id="query_getnode" cols="30" row="25" style="height: 100px"   ></textarea><br>
+      <button onclick="delete_edge()" class="cs252graph-button" value="Send" id="SendData"> Delete Edge </button>
+      <button onclick="update_node()" class="cs252graph-button" value="Send" id="SendData"> Add Node </button>
+      <button onclick="create_edge()" class="cs252graph-button" value="Send" id="SendData"> Create Edge </button>
       <button onclick="delete_node()" class="cs252graph-button" value="Send" id="SendData"> Delete Node </button>
-      <!-- <button onclick="create_edge()" class="cs252graph-button" value="Send" id="SendData"> Create Edge </button> -->
+    </div>
+    <div id="cytoscapeweb2" class="cs252graph" align="center" style="text-align:center">
+      Cytoscape Web will replace the contents of this div with the whole graph.
     </div>
   </div>
 
   <div class="cs252graph  " style="width:40%;margin:20px;border:3px solid;">
     <h3 class="cs252graph-title">Your Output</h3>
     <textarea id="graph_output" name="Text1" cols="60" rows="20"></textarea><br>
-  </div>
-  <div id="cytoscapeweb" class="cs252graph" align="center">
-    Cytoscape Web will replace the contents of this div with your graph.
-  </div>
-  <div id="cytoscapeweb2" class="cs252graph2" align="center">
-    Cytoscape Web will replace the contents of this div with the whole graph.
   </div>
 </body>
 </html>

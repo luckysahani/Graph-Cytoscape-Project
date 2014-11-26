@@ -69,7 +69,7 @@
 							<h1><span>Create a Node </span></h1>
 							<textarea id="graph_input"  name="Text1" cols="30" row="18" style="height:300px"  ></textarea>
 							<h1><span> </span></h1>
-							<div><button onclick="create()" value="Send" class="cs252graph-button" id='sendData'> Enter the node details with edges </button></div>
+							<div><button onclick="create();drawgraph();" value="Send" class="cs252graph-button" id='sendData'> Enter the node details with edges </button></div>
 						</div>
 						<div class="overlay"></div>
 					</div>
@@ -79,7 +79,11 @@
 							<h1><span>Nearest Neighbour </span></h1>
 							<textarea name="Text2" id="query_input" cols="30" row="18" style="height:300px"  ></textarea>
 							<h1><span> </span></h1>
-							<div><button onclick="check_neighours()" class="cs252graph-button" value="Send" id='sendData' value='Get Neighbour'>Click to check neighours</button></div>
+							<div><button style="width:100%;margin:10px;" onclick="check_neighours()" class="cs252graph-button" value="Send" id='sendData' value='Get Neighbour'>Check neighours</button>
+							 <button style="width:100%;margin:10px;" onclick="dijkstras()" class="cs252graph-button" value="Send" id="SendData"> Disjkstras </button><br>
+      						<button style="width:100%;margin:10px;" onclick="levels()" class="cs252graph-button" value="Send" id="SendData"> Get levels </button></div>
+      						<button style="width:100%;margin:10px;" onclick="shortest_path()" class="cs252graph-button" value="Send" id="SendData"> Shortest Path </button></div>
+
 						</div>
 						<div class="overlay"></div>
 					</div>
@@ -96,7 +100,7 @@
 				<div class="page page-left">
 					<div class="page-inner">
 						<section>
-						<div id="cytoscapeweb" class="cs252graph" align="center">
+						<div id="cytoscapeweb2" class="cs252graph" align="center">
    						 Cytoscape Web will replace the contents of this div with your graph.
  						</div>
  						</section>

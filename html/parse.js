@@ -138,7 +138,7 @@ function check_neighours(){
 }
 
 function shortest_path(){
-	var str = document.getElementById('query_getnode');
+	var str = document.getElementById('query_input');
 	var str1 = $.trim(str.value);
 	str1 = str1.split(' ');
 //	var temp ='temp + \n';
@@ -266,7 +266,7 @@ function shortest_path(){
 }
 
 function dijkstras(){
-	var str = document.getElementById('query_getnode');
+	var str = document.getElementById('query_input');
 	var str1 = $.trim(str.value);
 	str1 = str1.split(' ');
 //	var temp ='temp + \n';
@@ -394,7 +394,7 @@ function dijkstras(){
 }
 
 function levels(){
-	var str = document.getElementById('query_getnode');
+	var str = document.getElementById('query_input');
 	var str1 = $.trim(str.value);
 	str1 = str1.split(' ');
 
