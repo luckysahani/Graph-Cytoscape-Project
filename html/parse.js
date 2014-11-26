@@ -530,3 +530,17 @@ function create_edge(){
 		}
 	});
 }
+
+function delete_node(){
+	var str = document.getElementById('query_getnode');
+	var str1 = $.trim(str.value);
+	$.get('/delete_node?node=' + str1, function(data){
+		if(data=="0"){
+			document.getElementById('graph_output').value = "Error Deleting Node";
+		}
+		else{
+			document.getElementById('graph_output').value = "Node has been deleted";
+			drawgraph();
+		}
+	});
+}

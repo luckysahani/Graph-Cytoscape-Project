@@ -466,3 +466,31 @@ app.get("/update_node", function(request, response){
 		});
 	});
 });
+
+app.get("/delete_node", function(request, response){
+	neo4j.connect('http://localhost:7474/db/data/', function (err, graph) {
+		var id1 = request.query.node;
+		var query = 'MATCH a-[r]->b WHERE a.Name="'+id1+'"or b.Name="'+id1+'" DELETE r';
+		console.log(query);
+		graph.query(query, function (err, results){
+			if (err) {
+				console.log(err);
+				console.log(err.stack);
+				response.send("0");
+			}
+			else{
+				query = 'MATCH a WHERE a.Name="'+id1+'" DELETE a';
+				graph.query(query, function (err, results){
+					if (err) {
+						console.log(err);
+						console.log(err.stack);
+						response.send("0");
+					}
+					else{
+						response.send("1");
+					}
+				});
+			}			
+		});
+	});
+});
