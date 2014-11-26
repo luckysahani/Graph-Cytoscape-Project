@@ -10,12 +10,12 @@ function create(){
 				// console.log("create clicked");	
 }
 
-function show_all_data(){
-	$.get( '/show_all_data', function(data){
-		document.getElementById('graph_output').value=data;
-	});
-	console.log('All data is shown below');
-}
+// function show_all_data(){
+// 	$.get( '/show_all_data', function(data){
+// 		document.getElementById('graph_output').value=data;
+// 	});
+// 	console.log('All data is shown below');
+// }
 
 function delete1(){
     var x;
@@ -266,7 +266,7 @@ function levels(){
 			    	visualStyle: visual_style,
 			    	network: graph,
 			    	edgeLabelsVisible: true,
-		            // layout: "Tree"
+		             layout: "Tree"
 			    };
 			    
 				//  init and draw
@@ -281,101 +281,97 @@ function drawgraph(){
 	// var str = document.getElementById('query_input');
 	var temp ='temp + \n';
 	// var str1 = $.trim(str.value);
-
-	$.get( '/drawgraph', function(dat1){
-		//	console.log(data);
-
-		document.getElementById('graph_output').value = JSON.stringify(dat1);
-		var graph = { 
-						dataSchema: 
-						{ 
-							nodes: [ { 
-								name: "label", type: "string" 
-							} ], 
-							edges: [ {	name: "label", type: "string"},
-								{name: "directed", type: "boolean", defValue: true}
-							] 
-						}, 
-						data: { 
-							nodes: [],
-							edges: []
-						}
-					};
-		var visual_style = {
-            global: {
-                backgroundColor: "#ABCFD6"
+	var graph = { 
+					dataSchema: 
+					{ 
+						nodes: [ { 
+							name: "label", type: "string" 
+						} ], 
+						edges: [ {	name: "label", type: "string"},
+							{name: "directed", type: "boolean", defValue: true}
+						] 
+					}, 
+					data: { 
+						nodes: [],
+						edges: []
+					}
+				};
+	var visual_style = {
+        global: {
+            backgroundColor: "#ABCFD6"
+        },
+        nodes: {
+            shape: "OCTAGON",
+            borderWidth: 3,
+            borderColor: "#ffffff",
+            size: {
+                defaultValue: 25,
+               // continuousMapper: { attrName: "weight", minValue: 25, maxValue: 75 }
             },
-            nodes: {
-                shape: "OCTAGON",
-                borderWidth: 3,
-                borderColor: "#ffffff",
-                size: {
-                    defaultValue: 25,
-                   // continuousMapper: { attrName: "weight", minValue: 25, maxValue: 75 }
-                },
-                color: {
-                    discreteMapper: {
-                        attrName: "id",
-                        entries: [
-                            
-                        ]
-                    }
-                },
-                labelHorizontalAnchor: "center"
+            color: {
+                discreteMapper: {
+                    attrName: "id",
+                    entries: [
+                        
+                    ]
+                }
             },
-            edges: {
-                width: 3,
-                color: "#0B94B1"
-            }
-        };
-		// console.log(graph);
-		var div_id = "cytoscapeweb2";
+            labelHorizontalAnchor: "center"
+        },
+        edges: {
+            width: 3,
+            color: "#0B94B1"
+        }
+    };
+
+    var options = {
+        swfPath: "/swf/CytoscapeWeb",
+        flashInstallerPath: "/swf/playerProductInstall"
+
+    };
+
+    var draw_options ={
+    	visualStyle: visual_style,
+    	network: graph,
+    	edgeLabelsVisible: true,
+         layout: "Tree"
+    };
+	// console.log(graph);
+	var div_id = "cytoscapeweb2";
+
+	$.get( '/get_all_node', function(dat1){
 		var obj = JSON.parse(dat1);
-		// console.log(obj.length);
-
-		var element = {};
-		element.id = ''+obj.length+'';
-		element.label = obj[0].a.data.Name;
-		console.log(obj[0]);
-		graph.data.nodes.push(element);
 		for(var i=0; i<obj.length; i++)
 		{
 			var element = {};
-			element.id = ''+i+'';
-			element.label = obj[i].b.data.Name;
+			element.id = ''+obj[i].a.id+'';
+			element.label = obj[i].a.data.Name;
 			graph.data.nodes.push(element);
 			element = {};
-			element.attrValue = ''+i+'';
+			element.attrValue = ''+obj[i].a.id+'';
 			element.value = "#7FFF00";
 			visual_style.nodes.color.discreteMapper.entries.push(element);
 		}
+		//	console.log(data);
+		$.get('/get_all_rel', function(data){
+			document.getElementById('graph_output').value = data;
+			// console.log(obj.length);
+			var obj = JSON.parse(data);
 
-		for(var i=0; i<obj.length; i++){
-			var element = {};
-			element.id = ''+ i +'_link';
-			element.target = '' + i + '';
-			element.source = ''+obj.length + '';
-			element.label = 'edge';
-			graph.data.edges.push(element);
-		}
-		
-
-	    var options = {
-	        swfPath: "/swf/CytoscapeWeb",
-	        flashInstallerPath: "/swf/playerProductInstall"
-
-	    };
-
-	    var draw_options ={
-	    	visualStyle: visual_style,
-	    	network: graph,
-	    	edgeLabelsVisible: true,
-            // layout: "Tree"
-	    };
-	    
-		//  init and draw
-		var vis = new org.cytoscapeweb.Visualization(div_id, options);
-		vis.draw(draw_options);
+			for(var i=0; i<obj.length; i++){
+				var element = {};
+				element.id = ''+ obj[i].r.id +'_link';
+				element.source = '' + obj[i].r.start + '';
+				element.target = ''+obj[i].r.end + '';
+				element.label = 'edge';
+				graph.data.edges.push(element);
+			}
+			
+		    
+			//  init and draw
+			var vis = new org.cytoscapeweb.Visualization(div_id, options);
+			vis.draw(draw_options);
+		});
 	});
 
 	// document.getElementById('drawgraph').value = '';

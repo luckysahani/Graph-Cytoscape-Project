@@ -154,7 +154,7 @@ app.get("/show_all_data", function(request, response){
 	});
 });
 
-
+	
 app.get("/shortest", function(request, response){
 	// var str1 = request.query.param1;
 	neo4j.connect('http://localhost:7474/db/data/', function (err, graph) {
@@ -244,6 +244,43 @@ app.get("/get_node", function(request, response){
 		var node = request.query.node;
 
 		var get_levels = 'MATCH a WHERE a.Name="'+node+'" RETURN a'
+		graph.query(get_levels, function (err, results) {
+			if (err) {
+				console.log(err);
+				console.log(err.stack);
+			}
+			else{
+				//response.send(results);
+				console.log(get_levels);
+				response.send(JSON.stringify(results, null, 5 ));
+			}
+		});
+
+	});
+});
+
+
+app.get("/get_all_node", function(request, response){
+	neo4j.connect('http://localhost:7474/db/data/', function (err, graph) {
+		var get_levels = 'MATCH a RETURN DISTINCT a'
+		graph.query(get_levels, function (err, results) {
+			if (err) {
+				console.log(err);
+				console.log(err.stack);
+			}
+			else{
+				//response.send(results);
+				console.log(get_levels);
+				response.send(JSON.stringify(results, null, 5 ));
+			}
+		});
+
+	});
+});
+
+app.get("/get_all_rel", function(request, response){
+	neo4j.connect('http://localhost:7474/db/data/', function (err, graph) {
+		var get_levels = 'MATCH a-[r]->b RETURN DISTINCT r'
 		graph.query(get_levels, function (err, results) {
 			if (err) {
 				console.log(err);
