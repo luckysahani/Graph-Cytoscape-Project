@@ -26,7 +26,7 @@ app.get("/create", function(request, response){
 	}
 	for(i = 1; i<input.length; i++){
 		nodes = input[i].split(' ');
-		query += '(e'+parseInt(nodes[0])+')-[:RELATED{weight:['+parseInt(nodes[2])+']}]->(e'+parseInt(nodes[1])+'), ';
+		query += '(e'+parseInt(nodes[0])+')-[:RELATED{weight:['+1+']}]->(e'+parseInt(nodes[1])+'), ';
 	}
 
 	query = query.substring(0, query.length - 2);
@@ -293,5 +293,147 @@ app.get("/get_all_rel", function(request, response){
 			}
 		});
 
+	});
+});
+
+app.get("/getnode", function(request, response1){
+	// var str1 = request.query.param1;
+	neo4j.connect('http://localhost:7474/db/data/', function (err, graph) {
+		var node1 = request.query.node1;
+		var node2 = request.query.node2;
+		//var nod2 = request.query.nod2;
+
+		var get_node = 'MATCH (a:Node) WHERE a.Name = "'+node1+ '" RETURN a';
+		var id1 = '';
+		var id2 = '';
+		graph.query(get_node, function (err, results) {
+			if (err) {
+				console.log(err);
+				console.log(err.stack);
+			}
+			else{
+				id1 = results[0].a.id;
+				var get_node = 'MATCH (a:Node) WHERE a.Name = "'+node2+ '" RETURN a';
+				graph.query(get_node, function (err, results) {
+					if (err) {
+						console.log(err);
+						console.log(err.stack);
+					}
+					else{
+						id2 = results[0].a.id;
+						console.log(id1+id2);
+			    		var query1 = '{  "to" : "http://localhost:7474/db/data/node/'+id2+'", "max_depth" : 1000, "relationships" : {    "type" : "RELATED",    "direction" : "out" },  "algorithm" : "shortestPath" }';
+			    		var path = 'http://localhost:7474/db/data/node/'+id1+'/paths';
+			    		// console.log(id1 +" "+ id2);
+			    		hrequest.post({
+				    		headers:{
+								'Content-Type': 'application/json; charset=UTF-8',
+								'Accept': 'application/json'
+			    			},
+						    uri: path,
+						    body: query1
+						},
+					    function (error, response, body) {
+					    	// console.log(error);
+					        if (!error && response.statusCode == 200) {
+					            // console.log(body);
+					            // var obj = JSON.parse(body);
+					            // console.log(obj[0].nodes[0]);
+				            	response1.send(body);
+					        }
+					    });
+					}
+				});
+			}
+		});
+
+	});
+});
+
+app.get("/nodebyid", function(request, response){
+	neo4j.connect('http://localhost:7474/db/data/', function (err, graph) {
+		var get_levels = 'START n=node(';
+		var index = request.query.indexes.split(' ');
+		for(var i=0;i<index.length;i++){
+			get_levels+=index[i]+',';
+		}
+		get_levels = get_levels.substring(0, get_levels.length - 1);
+		get_levels+=') RETURN n';
+		console.log(get_levels);
+		graph.query(get_levels, function (err, results) {
+			if (err) {
+				console.log(err);
+				console.log(err.stack);
+			}
+			else{
+				//response.send(results);
+			//	console.log(get_levels);
+				response.send(JSON.stringify(results, null, 5 ));
+			}
+		});
+
+	});
+});
+
+app.get("/relbyid", function(request, response){
+	neo4j.connect('http://localhost:7474/db/data/', function (err, graph) {
+		var get_levels = 'START n=relationship(';
+		var index = request.query.indexes.split(' ');
+		for(var i=0;i<index.length;i++){
+			get_levels+=index[i]+',';
+		}
+		get_levels = get_levels.substring(0, get_levels.length - 1);
+		get_levels+=') RETURN n';
+		console.log(get_levels);
+		graph.query(get_levels, function (err, results) {
+			if (err) {
+				console.log(err);
+				console.log(err.stack);
+			}
+			else{
+				//response.send(results);
+			//	console.log(get_levels);
+				response.send(JSON.stringify(results, null, 5 ));
+			}
+		});
+
+	});
+});
+
+app.get("/delete_edge", function(request, response){
+	neo4j.connect('http://localhost:7474/db/data/', function (err, graph) {
+		var id1 = request.query.node1;
+		var id2 = request.query.node2;
+		var query = 'MATCH a-[r]->b WHERE a.Name="'+id1+'" and b.Name="'+id2+'" DELETE r';
+		console.log(query);
+		graph.query(query, function (err, results){
+			if (err) {
+				console.log(err);
+				console.log(err.stack);
+				response.send("0");
+			}
+			else{
+				response.send("1");
+			}			
+		});
+	});
+});
+
+app.get("/create_edge", function(request, response){
+	neo4j.connect('http://localhost:7474/db/data/', function (err, graph) {
+		var id1 = request.query.node1;
+		var id2 = request.query.node2;
+		var query = 'MATCH a-[r]->b WHERE a.Name="'+id1+'" and b.Name="'+id2+'" DELETE r';
+		console.log(query);
+		graph.query(query, function (err, results){
+			if (err) {
+				console.log(err);
+				console.log(err.stack);
+				response.send("0");
+			}
+			else{
+				response.send("1");
+			}			
+		});
 	});
 });

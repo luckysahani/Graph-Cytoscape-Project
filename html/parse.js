@@ -145,17 +145,124 @@ function shortest_path(){
 	var id1 = '';
 	var id2 = '';
 	// console.log(str1[1]);
-	$.get( '/shortest?node1=' +  str1[0] + '&node2=' + str1[1], function(dat1){
-		var node = JSON.parse(dat1);
-		id1 = node[0].a.id;
+	$.get( '/getnode?node1=' +  str1[0] + '&node2=' + str1[1], function(dat1){
+		
+		var obj = JSON.parse(dat1);
+
+		var graph = { 
+						dataSchema: 
+						{ 
+							nodes: [ { 
+								name: "label", type: "string" 
+							} ], 
+							edges: [ {	name: "label", type: "string"},
+								{name: "directed", type: "boolean", defValue: true}
+							] 
+						}, 
+						data: { 
+							nodes: [],
+							edges: []
+						}
+					};
+		var visual_style = {
+            global: {
+                backgroundColor: "#ABCFD6"
+            },
+            nodes: {
+                shape: "OCTAGON",
+                borderWidth: 3,
+                borderColor: "#ffffff",
+                size: {
+                    defaultValue: 25,
+                   // continuousMapper: { attrName: "weight", minValue: 25, maxValue: 75 }
+                },
+                color: {
+                    discreteMapper: {
+                        attrName: "id",
+                        entries: [
+                            
+                        ]
+                    }
+                },
+                labelHorizontalAnchor: "center"
+            },
+            edges: {
+                width: 3,
+                color: "#0B94B1"
+            }
+        };
+
+	    var options = {
+	        swfPath: "/swf/CytoscapeWeb",
+	        flashInstallerPath: "/swf/playerProductInstall"
+
+	    };
+
+	    var draw_options ={
+	    	visualStyle: visual_style,
+	    	network: graph,
+	    	// edgeLabelsVisible: true,
+            layout: "Circle"
+	    };
+
+		var div_id = "cytoscapeweb";
+		
+		var element = {};
+		var prev_node = -1;
+		var indexes = '';
+		for(var i=0; i<obj[0].nodes.length; i++){
+			var temp = obj[0].nodes[i];
+			temp=temp.split('/');
+			indexes+=temp[temp.length-1]+' ';
+		}
+		indexes.trim();
+
+		var rel_indexes = '';
+		for(var i=0; i<obj[0].relationships.length; i++){
+			var temp = obj[0].relationships[i];
+			temp=temp.split('/');
+			rel_indexes+=temp[temp.length-1]+' ';
+		}
+		rel_indexes.trim();
+		
+		$.get( '/nodebyid?indexes=' +  indexes , function(dat2){
+			// document.getElementById('graph_output').value=dat1;
+			var obj2= JSON.parse(dat2);
+			for(var i=0;i<obj2.length;i++){
+				element = {};
+				element.id = ''+obj2[i].n.id+'';
+				element.label = ''+obj2[i].n.data.Name+'';
+				graph.data.nodes.push(element);
+			}
+			$.get( '/relbyid?indexes=' +  rel_indexes , function(dat3){
+				document.getElementById('graph_output').value=dat3;
+				var obj3= JSON.parse(dat3);
+				for(var i=0;i<obj3.length;i++){
+					element = {};
+					element.id = ''+obj3[i].n.id+'';
+					element.source = ''+obj3[i].n.start+'';
+					element.target = ''+obj3[i].n.end+'';
+					graph.data.edges.push(element);
+				}
+				var vis = new org.cytoscapeweb.Visualization(div_id, options);
+				vis.draw(draw_options);
+			});	
+			// var vis = new org.cytoscapeweb.Visualization(div_id, options);
+			// vis.draw(draw_options);
+		});
+		//document.getElementById('graph_output').value = dat1;
+		//document.getElementById('graph_output').value = div_id;
+
+	    
+		//  init and draw
+		//document.getElementById('graph_output').value = JSON.stringify(visual_style);
 	});
 	// $.get( '/getnode?node1=' +  str1[1], function(dat1){
 	// 	var node = JSON.parse(dat1);
 	// 	id2 = node[0].a.id;
 	// });
-		// document.getElementById('graph_output').value = id2;
+		// document.getElementById('graph_output').value = id1;
 }
-
 
 function levels(){
 	var str = document.getElementById('query_getnode');
@@ -376,4 +483,19 @@ function drawgraph(){
 
 	// document.getElementById('drawgraph').value = '';
 	console.log("drawgraph is done");	
+}
+
+function delete_edge(){
+	var str = document.getElementById('query_getnode');
+	var str1 = $.trim(str.value);
+	str1 = str1.split(' ');
+	$.get('/delete_edge?node1=' +  str1[0] + '&node2=' + str1[1], function(data){
+		if(data=="0"){
+			document.getElementById('graph_output').value = "Error Deleting Edges";
+		}
+		else{
+			document.getElementById('graph_output').value = "Edge has been deleted";
+			drawgraph();
+		}
+	});
 }
