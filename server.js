@@ -26,7 +26,7 @@ app.get("/create", function(request, response){
 	}
 	for(i = 1; i<input.length; i++){
 		nodes = input[i].split(' ');
-		query += '(e'+parseInt(nodes[0])+')-[:RELATED]->(e'+parseInt(nodes[1])+'), ';
+		query += '(e'+parseInt(nodes[0])+')-[:RELATED{weight:['+parseInt(nodes[2])+']}]->(e'+parseInt(nodes[1])+'), ';
 	}
 
 	query = query.substring(0, query.length - 2);
@@ -270,7 +270,7 @@ app.get("/get_all_node", function(request, response){
 			}
 			else{
 				//response.send(results);
-				console.log(get_levels);
+			//	console.log(get_levels);
 				response.send(JSON.stringify(results, null, 5 ));
 			}
 		});
@@ -288,7 +288,7 @@ app.get("/get_all_rel", function(request, response){
 			}
 			else{
 				//response.send(results);
-				console.log(get_levels);
+			//	console.log(get_levels);
 				response.send(JSON.stringify(results, null, 5 ));
 			}
 		});
