@@ -56,6 +56,7 @@ body {
   width: 100%;
   margin: 20px ;
   overflow: hidden;
+  /*background: brown;*/
 }
 
 .cs252graph {
@@ -65,7 +66,7 @@ body {
   margin: 20px 2px;
   padding: 15px 25px;
   text-align: center;
-  background: white;
+  background: #DCEBF2;
   background-clip: padding-box;
   border: 2px solid #e5ded6;
   border-color: rgba(0, 0, 0, 0.1);
@@ -77,7 +78,7 @@ body {
 .cs252graph-title {
   margin-bottom: 12px;
   font-size: 24px;
-  color: #36bce6;
+  color: #4B8691;
 }
 
 .cs252graph-price {
@@ -135,7 +136,7 @@ body {
   text-align: center;
   text-decoration: none;
   text-shadow: 0 1px rgba(0, 0, 0, 0.1);
-  background: #67B1D2;
+  background: #4B8691;
   border-bottom: 2px solid #cf7e3b;
   border-color: rgba(0, 0, 0, 0.15);
   border-radius: 4px;
