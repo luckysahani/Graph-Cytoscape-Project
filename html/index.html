@@ -22,12 +22,16 @@
   </script>
 </head>
 <style type="text/css">
+  body{
+    /*background-image: url("images/background.jpg");*/
+    background: #407F7F;
+  }
   button{
-  width: 100%;
-}
+    width: 100%;
+  }
 </style>
 <body onload="drawgraph()">
-  <div align="center" style="font-size:28px;padding:10px;">
+  <div align="center" style="font-size:28px;padding:10px;color:#DCEBF2">
     Graph Visualisation
   </div> 
   <hr>
@@ -50,6 +54,14 @@
         Cytoscape Web will replace the contents of this div with your graph.
       </div>
     </div>
+    <!-- <button style="width:49%;margin:5px;margin-top:0px;float: right;" onclick="" class="cs252graph-button" value="Send" id='color2'> Change color </button> -->
+    <button style="width:11%;margin:5px;margin-top:0px;float: right;" onclick="" class="cs252graph-button" value="Send" id='type2'> Change type </button>
+    <select style="width:26%;height:35px;margin:2px;float: right;" id = 'type_select2'>
+      <option value="Tree">Tree</option>
+      <option value="Circle">Circle</option>
+      <option value="Radial">Radial</option>
+    </select>
+    <button style="width:11%;margin:5px;margin-top:0px;float: right;" onclick="" class="cs252graph-button" value="Send" id='color2'> Change color </button>
   </div>
   <div class="cs252graphs">
     <div class="cs252graph">
@@ -57,6 +69,7 @@
       <button onclick="delete1()" class="cs252graph-button" value="Send" id='sendData'> Click to delete all data </button>
       <button onclick="show_all_data()" class="cs252graph-button" value="Send" id='sendData'> Show all data </button>
       <button onclick="drawgraph()" class="cs252graph-button" value="Send" id='sendData'> Refresh Graph </button>
+      <!-- <button onclick="" class="cs252graph-button" value="Send" id='color'> Change color </button> -->
     </div>
     <div class="cs252graph">
       <h3 class="cs252graph-title">Edit Graph</h3>
@@ -69,6 +82,13 @@
     <div id="cytoscapeweb2" class="cs252graph" align="center" style="text-align:center">
       Cytoscape Web will replace the contents of this div with the whole graph.
     </div>
+    <button style="width:11%;margin:5px;margin-top:0px;float: right;" onclick="" class="cs252graph-button" value="Send" id='type'> Change type </button>
+    <select style="width:26%;height:35px;margin:2px;float: right;" id= "type_select">
+      <option value="Tree">Tree</option>
+      <option value="Circle">Circle</option>
+      <option value="Radial">Radial</option>
+    </select>
+    <button style="width:11%;margin:5px;margin-top:0px;float: right;" onclick="" class="cs252graph-button" value="Send" id='color'> Change color </button>
   </div>
 
   <div class="cs252graph  " style="width:40%;margin:20px;border:3px solid;">

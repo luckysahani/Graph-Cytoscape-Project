@@ -4,12 +4,34 @@ function create(){
 	str1 = str1.split('\n');
 	str1 = str1.join('; ');
 	$.get( '/create?param1=' +  str1, function(data){
+		if(data == "-1"){alert("Error");}
 		document.getElementById('graph_output').value=data;
 	});
 	document.getElementById('graph_input').value = '';
 				// console.log("create clicked");	
 }
 
+function rand_color() {
+    function rand_channel() {
+        return Math.round( Math.random() * 255 );
+    }
+    
+    function hex_string(num) {
+        var ret = num.toString(16);
+        
+        if (ret.length < 2) {
+            return "0" + ret;
+        } else {
+            return ret;
+        }
+    }
+    
+    var r = rand_channel();
+    var g = rand_channel();
+    var b = rand_channel();
+    
+    return "#" + hex_string(r) + hex_string(g) + hex_string(b); 
+}
 // function show_all_data(){
 // 	$.get( '/show_all_data', function(data){
 // 		document.getElementById('graph_output').value=data;
@@ -129,6 +151,20 @@ function check_neighours(){
 	    
 		//  init and draw
 		var vis = new org.cytoscapeweb.Visualization(div_id, options);
+		vis.ready(function() {
+                    // set the style programmatically
+                document.getElementById("color2").onclick = function(){
+                    visual_style.global.backgroundColor = rand_color();
+                    vis.visualStyle(visual_style);
+                };
+
+                document.getElementById("type2").onclick = function(){
+                	var sel = document.getElementById("type_select2");
+                    draw_options.layout = sel.options[sel.selectedIndex].value ;
+                   // alert(draw_options.layout);
+                    vis.draw(draw_options);
+                };
+            });
 		vis.draw(draw_options);
 		// document.getElementById('graph_output').value = JSON.stringify(visual_style);
 	});
@@ -246,6 +282,20 @@ function shortest_path(){
 					graph.data.edges.push(element);
 				}
 				var vis = new org.cytoscapeweb.Visualization(div_id, options);
+				vis.ready(function() {
+                    // set the style programmatically
+                document.getElementById("color2").onclick = function(){
+                    visual_style.global.backgroundColor = rand_color();
+                    vis.visualStyle(visual_style);
+                };
+
+                document.getElementById("type2").onclick = function(){
+                	var sel = document.getElementById("type_select2");
+                    draw_options.layout = sel.options[sel.selectedIndex].value ;
+                   // alert(draw_options.layout);
+                    vis.draw(draw_options);
+                };
+            });
 				vis.draw(draw_options);
 			});	
 			// var vis = new org.cytoscapeweb.Visualization(div_id, options);
@@ -374,6 +424,20 @@ function dijkstras(){
 					graph.data.edges.push(element);
 				}
 				var vis = new org.cytoscapeweb.Visualization(div_id, options);
+				vis.ready(function() {
+                    // set the style programmatically
+                document.getElementById("color2").onclick = function(){
+                    visual_style.global.backgroundColor = rand_color();
+                    vis.visualStyle(visual_style);
+                };
+
+                document.getElementById("type2").onclick = function(){
+                	var sel = document.getElementById("type_select2");
+                    draw_options.layout = sel.options[sel.selectedIndex].value ;
+                   // alert(draw_options.layout);
+                    vis.draw(draw_options);
+                };
+            });
 				vis.draw(draw_options);
 			});	
 			// var vis = new org.cytoscapeweb.Visualization(div_id, options);
@@ -507,6 +571,20 @@ function levels(){
 			    
 				//  init and draw
 				var vis = new org.cytoscapeweb.Visualization("cytoscapeweb", options);
+				vis.ready(function() {
+                    // set the style programmatically
+                document.getElementById("color2").onclick = function(){
+                    visual_style.global.backgroundColor = rand_color();
+                    vis.visualStyle(visual_style);
+                };
+
+                document.getElementById("type2").onclick = function(){
+                	var sel = document.getElementById("type_select2");
+                    draw_options.layout = sel.options[sel.selectedIndex].value ;
+                   // alert(draw_options.layout);
+                    vis.draw(draw_options);
+                };
+            });
 				vis.draw(draw_options);
 			});
 		});
@@ -606,6 +684,41 @@ function drawgraph(){
 		    
 			//  init and draw
 			var vis = new org.cytoscapeweb.Visualization(div_id, options);
+			// function rand_color() {
+   //              function rand_channel() {
+   //                  return Math.round( Math.random() * 255 );
+   //              }
+                
+   //              function hex_string(num) {
+   //                  var ret = num.toString(16);
+                    
+   //                  if (ret.length < 2) {
+   //                      return "0" + ret;
+   //                  } else {
+   //                      return ret;
+   //                  }
+   //              }
+                
+   //              var r = rand_channel();
+   //              var g = rand_channel();
+   //              var b = rand_channel();
+                
+   //              return "#" + hex_string(r) + hex_string(g) + hex_string(b); 
+   //          }
+			vis.ready(function() {
+                    // set the style programmatically
+                document.getElementById("color").onclick = function(){
+                    visual_style.global.backgroundColor = rand_color();
+                    vis.visualStyle(visual_style);
+                };
+
+                document.getElementById("type").onclick = function(){
+                	var sel = document.getElementById("type_select");
+                    draw_options.layout = sel.options[sel.selectedIndex].value ;
+                   // alert(draw_options.layout);
+                    vis.draw(draw_options);
+                };
+            });
 			vis.draw(draw_options);
 		});
 	});
@@ -621,6 +734,7 @@ function delete_edge(){
 	$.get('/delete_edge?node1=' +  str1[0] + '&node2=' + str1[1], function(data){
 		if(data=="0"){
 			document.getElementById('graph_output').value = "Error Deleting Edges";
+			alert("Error Deleting Edge");
 		}
 		else{
 			document.getElementById('graph_output').value = "Edge has been deleted";
@@ -637,6 +751,7 @@ function update_node(){
 	$.get('/update_node?node=' + str1, function(data){
 		if(data=="0"){
 			document.getElementById('graph_output').value = "Error Updating Node";
+			alert("Error Adding Node");
 		}
 		else{
 			document.getElementById('graph_output').value = "New Node has been created";
@@ -652,6 +767,7 @@ function create_edge(){
 	$.get('/create_edge?node1=' +  str1[0], function(data){
 		if(data=="0"){
 			document.getElementById('graph_output').value = "Error Deleting Edges";
+			alert("Error Deleting Edges");
 		}
 		else{
 			document.getElementById('graph_output').value = "Edge has been deleted";
@@ -666,6 +782,7 @@ function delete_node(){
 	$.get('/delete_node?node=' + str1, function(data){
 		if(data=="0"){
 			document.getElementById('graph_output').value = "Error Deleting Node";
+			alert("Error Deleting Nodes");
 		}
 		else{
 			document.getElementById('graph_output').value = "Node has been deleted";

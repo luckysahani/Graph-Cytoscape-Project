@@ -36,7 +36,7 @@
 	/*padding-left: 100px;*/
 	width: 49%;
 	/*right:0;*/
-	height: 430px;
+	height: 370px;
 	/*border: 1px solid;*/
 	box-shadow:  3px 3px 3px #888888;
 	z-index: -1;
@@ -48,12 +48,13 @@
 	float: right;
 	margin-right: 5px;
 	margin-left: 10px;
+	/*marigin-bottom:10px;*/
 	/*overflow: hidden;*/
 	padding: 0px;
 	/*padding-left: 100px;*/
 	width: 49%;
 	/*right:0;*/
-	height: 430px;
+	height: 370px;
 	border: 1px solid;
 	position: relative;
 	box-shadow:  3px 3px 3px #888888;
