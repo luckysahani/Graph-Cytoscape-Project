@@ -590,7 +590,7 @@ function drawgraph(){
 		}
 		//	console.log(data);
 		$.get('/get_all_rel', function(data){
-			document.getElementById('graph_output').value = data;
+		//	document.getElementById('graph_output').value = data;
 			// console.log(obj.length);
 			var obj = JSON.parse(data);
 
@@ -629,6 +629,22 @@ function delete_edge(){
 	});
 }
 
+
+function update_node(){
+	var str = document.getElementById('query_getnode');
+	var str1 = $.trim(str.value);
+	document.getElementById('graph_output').value = str1;
+	$.get('/update_node?node=' + str1, function(data){
+		if(data=="0"){
+			document.getElementById('graph_output').value = "Error Updating Node";
+		}
+		else{
+			document.getElementById('graph_output').value = "New Node has been created";
+			drawgraph();
+		}
+	});
+}
+
 function create_edge(){
 	var str = document.getElementById('query_getnode');
 	var str1 = $.trim(str.value);
@@ -639,6 +655,20 @@ function create_edge(){
 		}
 		else{
 			document.getElementById('graph_output').value = "Edge has been deleted";
+			drawgraph();
+		}
+	});
+}
+
+function delete_node(){
+	var str = document.getElementById('query_getnode');
+	var str1 = $.trim(str.value);
+	$.get('/delete_node?node=' + str1, function(data){
+		if(data=="0"){
+			document.getElementById('graph_output').value = "Error Deleting Node";
+		}
+		else{
+			document.getElementById('graph_output').value = "Node has been deleted";
 			drawgraph();
 		}
 	});
