@@ -26,7 +26,7 @@ app.get("/create", function(request, response){
 	}
 	for(i = 1; i<input.length; i++){
 		nodes = input[i].split(' ');
-		query += '(e_'+nodes[0]+')-[:RELATED{weight:['+1+']}]->(e_'+nodes[1]+'), ';
+		query += '(e_'+nodes[0]+')-[:RELATED{cost:'+nodes[2]+'}]->(e_'+nodes[1]+'), ';
 	}
 
 	query = query.substring(0, query.length - 2);
@@ -155,49 +155,49 @@ app.get("/show_all_data", function(request, response){
 });
 
 	
-app.get("/shortest", function(request, response){
-	// var str1 = request.query.param1;
-	neo4j.connect('http://localhost:7474/db/data/', function (err, graph) {
-		var node1 = request.query.node1;
-		var node2 = request.query.node2;
-		//var nod2 = request.query.nod2;
+// app.get("/shortest", function(request, response){
+// 	// var str1 = request.query.param1;
+// 	neo4j.connect('http://localhost:7474/db/data/', function (err, graph) {
+// 		var node1 = request.query.node1;
+// 		var node2 = request.query.node2;
+// 		//var nod2 = request.query.nod2;
 
-		var get_node = 'MATCH (a:Node) WHERE a.Name = "'+node1+ '"or a.Name ="' + node2 +'" RETURN a';
-		var id1 = '';
-		var id2 = '';
-		graph.query(get_node, function (err, results) {
-			if (err) {
-				console.log(err);
-				console.log(err.stack);
-			}
-			else{
-				id1 = results[0].a.id;
-				id2 = results[1].a.id;
-	    		var query1 = '{  "to" : "http://localhost:7474/db/data/node/'+id2+'", "max_depth" : 1000, "relationships" : {    "type" : "RELATED",    "direction" : "out" },  "algorithm" : "shortestPath" }';
-	    		var path = 'http://localhost:7474/db/data/node/'+id1+'/paths';
-	    		// console.log(id1 +" "+ id2);
-	    		hrequest.post({
-		    		headers:{
-						'Content-Type': 'application/json; charset=UTF-8',
-						'Accept': 'application/json'
-	    			},
-				    uri: path,
-				    body: query1
-				},
-			    function (error, response, body) {
-			    	// console.log(error);
-			        if (!error && response.statusCode == 200) {
-			            // console.log(body);
-			            // var obj = JSON.parse(body);
-			            // console.log(obj[0].nodes[0]);
-		            	response1.send(body);
-			        }
-			    });
-			}
-		})
+// 		var get_node = 'MATCH (a:Node) WHERE a.Name = "'+node1+ '"or a.Name ="' + node2 +'" RETURN a';
+// 		var id1 = '';
+// 		var id2 = '';
+// 		graph.query(get_node, function (err, results) {
+// 			if (err) {
+// 				console.log(err);
+// 				console.log(err.stack);
+// 			}
+// 			else{
+// 				id1 = results[0].a.id;
+// 				id2 = results[1].a.id;
+// 	    		var query1 = '{  "to" : "http://localhost:7474/db/data/node/'+id2+'", "max_depth" : 1000, "relationships" : {    "type" : "RELATED",    "direction" : "out" },  "algorithm" : "shortestPath" }';
+// 	    		var path = 'http://localhost:7474/db/data/node/'+id1+'/paths';
+// 	    		// console.log(id1 +" "+ id2);
+// 	    		hrequest.post({
+// 		    		headers:{
+// 						'Content-Type': 'application/json; charset=UTF-8',
+// 						'Accept': 'application/json'
+// 	    			},
+// 				    uri: path,
+// 				    body: query1
+// 				},
+// 			    function (error, response, body) {
+// 			    	// console.log(error);
+// 			        if (!error && response.statusCode == 200) {
+// 			            // console.log(body);
+// 			            // var obj = JSON.parse(body);
+// 			            // console.log(obj[0].nodes[0]);
+// 		            	response1.send(body);
+// 			        }
+// 			    });
+// 			}
+// 		})
 
-	});
-});
+// 	});
+// });
 
 app.get("/levels_node", function(request, response){
 	neo4j.connect('http://localhost:7474/db/data/', function (err, graph) {
@@ -321,10 +321,65 @@ app.get("/getnode", function(request, response1){
 					}
 					else{
 						id2 = results[0].a.id;
-						console.log(id1+id2);
+						// console.log(id1+id2);
 			    		var query1 = '{  "to" : "http://localhost:7474/db/data/node/'+id2+'", "max_depth" : 1000, "relationships" : {    "type" : "RELATED",    "direction" : "out" },  "algorithm" : "shortestPath" }';
 			    		var path = 'http://localhost:7474/db/data/node/'+id1+'/paths';
 			    		// console.log(id1 +" "+ id2);
+			    		hrequest.post({
+				    		headers:{
+								'Content-Type': 'application/json; charset=UTF-8',
+								'Accept': 'application/json'
+			    			},
+						    uri: path,
+						    body: query1
+						},
+					    function (error, response, body) {
+					    	// console.log(error);
+					        if (!error && response.statusCode == 200) {
+					            // console.log(body);
+					            // var obj = JSON.parse(body);
+					            // console.log(obj[0].nodes[0]);
+				            	response1.send(body);
+					        }
+					    });
+					}
+				});
+			}
+		});
+
+	});
+});
+
+app.get("/dijkstras", function(request, response1){
+	// var str1 = request.query.param1;
+	neo4j.connect('http://localhost:7474/db/data/', function (err, graph) {
+		var node1 = request.query.node1;
+		var node2 = request.query.node2;
+		//var nod2 = request.query.nod2;
+
+		var get_node = 'MATCH (a:Node) WHERE a.Name = "'+node1+ '" RETURN a';
+		var id1 = '';
+		var id2 = '';
+		graph.query(get_node, function (err, results) {
+			if (err) {
+				console.log(err);
+				console.log(err.stack);
+			}
+			else{
+				id1 = results[0].a.id;
+				var get_node = 'MATCH (a:Node) WHERE a.Name = "'+node2+ '" RETURN a';
+				graph.query(get_node, function (err, results) {
+					if (err) {
+						console.log(err);
+						console.log(err.stack);
+					}
+					else{
+						id2 = results[0].a.id;
+						console.log(id1+id2);
+			    		var query1 = '{  "to" : "http://localhost:7474/db/data/node/'+id2+'", "cost_property": "cost", "relationships" : {    "type" : "RELATED",    "direction" : "out" },  "algorithm" : "dijkstra" }';
+			    		var path = 'http://localhost:7474/db/data/node/'+id1+'/paths';
+			    		// console.log(id1 +" "+ id2);
+			    		// console.log(query1);
 			    		hrequest.post({
 				    		headers:{
 								'Content-Type': 'application/json; charset=UTF-8',
@@ -421,9 +476,11 @@ app.get("/delete_edge", function(request, response){
 
 app.get("/create_edge", function(request, response){
 	neo4j.connect('http://localhost:7474/db/data/', function (err, graph) {
-		var id1 = request.query.node1;
-		var id2 = request.query.node2;
-		var query = 'MATCH a,b WHERE a.Name="'+id1+'" and b.Name="'+id2+'" CREATE a-[:RELATED{weight:[1]}]->b' ;
+		var node1 = request.query.node1;
+		console.log(node1);
+		var nodes = node1.split(' ');
+
+		var query = 'MATCH a,b WHERE a.Name="'+nodes[0]+'" and b.Name="'+nodes[1]+'" CREATE a-[:RELATED{cost:'+nodes[2]+'}]->b' ;
 		console.log(query);
 		graph.query(query, function (err, results){
 			if (err) {
