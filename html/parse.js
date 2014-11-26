@@ -499,3 +499,18 @@ function delete_edge(){
 		}
 	});
 }
+
+function create_edge(){
+	var str = document.getElementById('query_getnode');
+	var str1 = $.trim(str.value);
+	str1 = str1.split(' ');
+	$.get('/create_edge?node1=' +  str1[0] + '&node2=' + str1[1], function(data){
+		if(data=="0"){
+			document.getElementById('graph_output').value = "Error Deleting Edges";
+		}
+		else{
+			document.getElementById('graph_output').value = "Edge has been deleted";
+			drawgraph();
+		}
+	});
+}
