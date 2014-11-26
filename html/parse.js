@@ -507,10 +507,25 @@ function update_node(){
 	document.getElementById('graph_output').value = str1;
 	$.get('/update_node?node=' + str1, function(data){
 		if(data=="0"){
-			document.getElementById('graph_output').value = "Error Deleting Node";
+			document.getElementById('graph_output').value = "Error Updating Node";
 		}
 		else{
-			document.getElementById('graph_output').value = "Node has been deleted";
+			document.getElementById('graph_output').value = "New Node has been created";
+			drawgraph();
+		}
+	});
+}
+
+function create_edge(){
+	var str = document.getElementById('query_getnode');
+	var str1 = $.trim(str.value);
+	str1 = str1.split(' ');
+	$.get('/create_edge?node1=' +  str1[0] + '&node2=' + str1[1], function(data){
+		if(data=="0"){
+			document.getElementById('graph_output').value = "Error Deleting Edges";
+		}
+		else{
+			document.getElementById('graph_output').value = "Edge has been deleted";
 			drawgraph();
 		}
 	});

@@ -22,11 +22,11 @@ app.get("/create", function(request, response){
 	var nodes = input[0].split(' ');
 	query = 'CREATE ';
 	for (var i = 0; i<nodes.length; i++){
-		query += '(e'+i+': Node {Name: "'+nodes[i]+'"}), ';
+		query += '(e_'+nodes[i]+': Node {Name: "'+nodes[i]+'"}), ';
 	}
 	for(i = 1; i<input.length; i++){
 		nodes = input[i].split(' ');
-		query += '(e'+parseInt(nodes[0])+')-[:RELATED{weight:['+1+']}]->(e'+parseInt(nodes[1])+'), ';
+		query += '(e_'+nodes[0]+')-[:RELATED{weight:['+1+']}]->(e_'+nodes[1]+'), ';
 	}
 
 	query = query.substring(0, query.length - 2);
@@ -423,7 +423,7 @@ app.get("/create_edge", function(request, response){
 	neo4j.connect('http://localhost:7474/db/data/', function (err, graph) {
 		var id1 = request.query.node1;
 		var id2 = request.query.node2;
-		var query = 'MATCH a-[r]->b WHERE a.Name="'+id1+'" and b.Name="'+id2+'" DELETE r';
+		var query = 'MATCH a,b WHERE a.Name="'+id1+'" and b.Name="'+id2+'" CREATE a-[:RELATED{weight:[1]}]->b' ;
 		console.log(query);
 		graph.query(query, function (err, results){
 			if (err) {
@@ -442,7 +442,6 @@ app.get("/update_node", function(request, response){
 	neo4j.connect('http://localhost:7474/db/data/', function (err, graph) {
 		var id1 = request.query.node;
 		var query = 'MATCH a WHERE a.Name="'+id1+'" RETURN a';
-		console.log(query);
 		graph.query(query, function (err, results){
 			if (err) {
 				console.log(err);
@@ -450,23 +449,16 @@ app.get("/update_node", function(request, response){
 				response.send("0");
 			}
 			else{
-				if(results.length>0){
-					query = 'MATCH a RETURN a';
+				if(results.length==0){
+					query = 'CREATE (e'+0+': Node {Name: "'+id1+'"})';
+					console.log(query);
 					graph.query(query, function (err, results){
-						if(err){
-							console.log(err);
+						if (err) {
+							console.log(err)
+							response.send("0");
 						}
 						else{
-							query = 'CREATE (e'+results.length+': Node {Name: "'+id1+'"}), ';
-							graph.query(query, function (err, results){
-								if (err) {
-									console.log(err)
-									response.send("0");
-								}
-								else{
-									response.send("1");
-								}
-							});
+							response.send("1");
 						}
 					});
 				}
