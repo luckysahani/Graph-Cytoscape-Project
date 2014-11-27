@@ -238,7 +238,7 @@ function shortest_path(){
 	    var draw_options ={
 	    	visualStyle: visual_style,
 	    	network: graph,
-	    	// edgeLabelsVisible: true,
+	    	edgeLabelsVisible: true,
             layout: "Circle"
 	    };
 
@@ -279,6 +279,7 @@ function shortest_path(){
 					element.id = ''+obj3[i].n.id+'';
 					element.source = ''+obj3[i].n.start+'';
 					element.target = ''+obj3[i].n.end+'';
+					element.label = ''+obj3[i].n.data.cost+'';
 					graph.data.edges.push(element);
 				}
 				var vis = new org.cytoscapeweb.Visualization(div_id, options);
@@ -380,7 +381,7 @@ function dijkstras(){
 	    var draw_options ={
 	    	visualStyle: visual_style,
 	    	network: graph,
-	    	// edgeLabelsVisible: true,
+	    	edgeLabelsVisible: true,
             layout: "Circle"
 	    };
 
@@ -421,6 +422,7 @@ function dijkstras(){
 					element.id = ''+obj3[i].n.id+'';
 					element.source = ''+obj3[i].n.start+'';
 					element.target = ''+obj3[i].n.end+'';
+					element.label = ''+obj3[i].n.data.cost+'';
 					graph.data.edges.push(element);
 				}
 				var vis = new org.cytoscapeweb.Visualization(div_id, options);
@@ -532,6 +534,7 @@ function levels(){
 				graph.data.nodes.push(element);
 			}
 			$.get( '/levels_rel?node=' +  str1[0] + '&depth=' + str1[1], function(data1){
+				document.getElementById('graph_output').value=data1;
 				obj = JSON.parse(data1);
 				var arr= new Array(1000);
 				for(i =0; i< 1000; i++) arr[i] = 0;
@@ -547,7 +550,7 @@ function levels(){
 							var element = {};
 							element.id = ''+obj[i].r[j].metadata.id+'_link';
 							element.source = temp1[temp1.length-1];	
-							element.label = "edge";
+							element.label = ''+obj[i].r[j].data.cost+'';
 							temp1 = obj[i].r[j].end;
 							temp1 = temp1.split('/');
 							element.target = temp1[temp1.length-1];
@@ -555,7 +558,7 @@ function levels(){
 						}
 					}
 				}
-				document.getElementById('graph_output').value = JSON.stringify(graph);
+				//document.getElementById('graph_output').value = JSON.stringify(graph);
 				var options = {
 			        swfPath: "/swf/CytoscapeWeb",
 			        flashInstallerPath: "/swf/playerProductInstall"
@@ -677,7 +680,7 @@ function drawgraph(){
 				element.id = ''+ obj[i].r.id +'_link';
 				element.source = '' + obj[i].r.start + '';
 				element.target = ''+obj[i].r.end + '';
-				element.label = 'edge';
+				element.label = ''+obj[i].r.data.cost+'';
 				graph.data.edges.push(element);
 			}
 			
