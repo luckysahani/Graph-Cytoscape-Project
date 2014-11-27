@@ -25,6 +25,7 @@
   body{
     /*background-image: url("images/background.jpg");*/
     overflow: hidden;
+    overflow-y: scroll;
     background: #407F7F;
   }
   button{
@@ -96,7 +97,7 @@
     <button style="width:11%;margin:5px;margin-top:0px;float: right;" onclick="" class="cs252graph-button" value="Send" id='color'> Change color </button>
   </div>
 
-  <div class="cs252graph  " style="width:40%;margin:20px;border:3px solid;">
+  <div class="cs252graph  " style="width:40%;margin:20px;border:3px solid;display:none;">
     <h3 class="cs252graph-title">Your Output</h3>
     <textarea id="graph_output" name="Text1" cols="60" rows="20"></textarea><br>
   </div>
