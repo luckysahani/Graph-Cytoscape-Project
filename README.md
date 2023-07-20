@@ -1,4 +1,4 @@
 cs252-project
 =============
 
-Graph Cytoscape
+Graph Cytoscape College project
